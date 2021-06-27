@@ -7,6 +7,9 @@ var flash = require("connect-flash");
 var LocalStrategy = require("passport-local");
 var ObjectId = require('mongodb').ObjectId; 
 var passport = require("passport");
+const webpush = require("web-push");
+const middleware = require("./middleware/index")
+const expressSanitizer = require('express-sanitizer');
 var indexRoutes = require("./routes/index");
 var passwordRoutes = require("./routes/passwordReset")
 var path = require('path'); 
@@ -40,10 +43,40 @@ app.set('view engine','ejs');
 app.set("views",path.resolve(__dirname,'views'));  
 var picPath = path.resolve(__dirname,'public');  
 app.use(express.static(picPath));  
-app.use(bodyParser.urlencoded({extended:false}))  
+app.use(bodyParser.urlencoded({extended:false}))
+app.use(expressSanitizer());  
 app.use(indexRoutes);
 app.use(passwordRoutes)
 app.use(flash());
+
+
+const publicVapidKey =
+  "BJthRQ5myDgc7OSXzPCMftGw-n16F7zQBEN7EUD6XxcfTTvrLGWSIG7y_JxiWtVlCFua0S8MTB5rPziBqNx1qIo";
+const privateVapidKey = "3KzvKasA2SoCxsp0iIG_o9B0Ozvl1XDwI63JRKNIWBM";
+
+webpush.setVapidDetails(
+  "mailto:test@test.com",
+  publicVapidKey,
+  privateVapidKey
+);
+
+// Subscribe Route
+app.post("/subscribe", (req, res) => {
+  // Get pushSubscription object
+  const subscription = req.body;
+
+  // Send 201 - resource created
+  res.status(201).json({});
+
+  // Create payload
+  const payload = JSON.stringify({ title: "Push Test" });
+
+  // Pass object into sendNotification
+  webpush
+    .sendNotification(subscription, payload)
+    .catch(err => console.error(err));
+});
+
 
 
 
@@ -56,7 +89,7 @@ app.use(flash());
   
   
 
-  app.post("/response/:id", function(req, res){
+  app.post("/response/:id", middleware.sanitizeChat, function(req, res){
    response.findById(req.params.id, function(err, responses){
      if(err){
        console.log(err)
@@ -90,9 +123,26 @@ app.use(flash());
   
   
   
-  io.on('connection', () =>{
-    console.log('a user is connected')
-  })
+  io.on('connection', (socket) => {
+    console.log('a user connected');
+    socket.on('disconnect', () => {
+      console.log('user disconnected');
+    });
+  });
+
+
+  io.on('connection', (socket)=>{
+    /*from server side we will emit 'display' event once the user starts typing
+    so that on the client side we can capture this event and display 
+    '<data.user> is typing...' */
+    socket.on('typing', (data)=>{
+      if(data.typing==true)
+         io.emit('display', data)
+      else
+         io.emit('display', data)
+    })
+}) 
+
   
 
 

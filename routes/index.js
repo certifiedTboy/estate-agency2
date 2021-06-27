@@ -60,6 +60,12 @@ router.use(require("express-session")({
 
 // //REGISTERATION ROUTE
     router.post("/register",(req,res)=>{
+      req.body.username = req.sanitize(req.body.username);
+      req.body.firstName = req.sanitize(req.body.firstName);
+      req.body.otherName = req.sanitize(req.body.otherName);
+      req.body.phoneNumber = req.sanitize(req.body.phoneNumber);
+      req.body.password = req.sanitize(req.body.password);
+      req.body.confirmPassword = req.sanitize(req.body.confirmPassword);
       if(req.body.password !== req.body.confirmPassword || req.body.password.length < 8){
         req.flash("error", "Password is invalid or Does not match !!!")
         res.redirect("back")
@@ -80,7 +86,11 @@ router.use(require("express-session")({
 
 
     // //LOGIN ROUTE
-    router.post("/login", passport.authenticate("local", 
+
+   
+   
+    router.post("/login", middleware.sanitizelogin, passport.authenticate("local", 
+    
     {
         successRedirect:"/admin/dashboard", 
         failureRedirect: "back",
@@ -163,9 +173,6 @@ router.use(require("express-session")({
     
    })
 
-  
-
-  
 
    router.get("/property/:id", function(req, res){
      Property.findById(req.params.id).populate("response").exec(function(err, data){
@@ -192,7 +199,7 @@ router.use(require("express-session")({
     })
 
   //CLIENT SIDE MESSAGE / RESPONSE ROUTES
-  router.post("/property/:id/response", function(req, res){
+  router.post("/property/:id/response", middleware.isLoggedIn, middleware.sanitizeResponse, function(req, res){
     Property.findById(req.params.id, function(err, property){
       if(err){
         console.log(err)
@@ -223,10 +230,6 @@ router.use(require("express-session")({
     })
   })
 
- 
-
-  
-   
   
 //ADMIN DASHBOARD ROUTES
 router.get("/admin/dashboard", middleware.isLoggedIn, middleware.checkAdmin,  function(req, res){
@@ -358,7 +361,7 @@ router.get("/admin/agents",  middleware.isLoggedIn, middleware.checkAdmin, funct
   res.render("admin/agent")
 })
 
-router.post("/property", upload.array("pic", 30),  middleware.isLoggedIn, middleware.checkAdmin, function(req, res){
+router.post("/property", upload.array("pic", 30),  middleware.isLoggedIn, middleware.checkAdmin, middleware.sanitizeProperty, function(req, res){
   var User = req.user;
   var x = req.files.map(file =>  "uploads/" + file.originalname)
   var picss = {
@@ -408,7 +411,7 @@ router.delete("/property/:id",  middleware.isLoggedIn, middleware.checkAdmin, fu
   })
 })
 
-router.put("/property/:id", upload.array("pic", 30),  middleware.isLoggedIn,  middleware.checkAdmin, function(req, res){
+router.put("/property/:id", upload.array("pic", 30),  middleware.isLoggedIn,  middleware.checkAdmin, middleware.sanitizeProperty, function(req, res){
   var User = req.user;
   var x = req.files.map(file =>  "uploads/" + file.originalname)
   var picss = {

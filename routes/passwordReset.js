@@ -5,6 +5,7 @@ const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const nodemailer = require('nodemailer');
 var flash = require("connect-flash");
+var middleware = require("../middleware/index");
 var LocalStrategy = require("passport-local");
 var passport = require("passport");
 const expressSanitizer = require('express-sanitizer');
@@ -65,7 +66,7 @@ router.get("/resetpassword", function(req,res){
   res.render("user/forgot")
 })
 
-router.post('/forgot', function(req, res, next) {
+router.post('/forgot', middleware.sanitizeForgot, function(req, res, next) {
   async.waterfall([
     function(done) {
       crypto.randomBytes(20, function(err, buf) {
@@ -121,7 +122,7 @@ router.get('/reset/:token', function(req, res) {
   });
 });
 
-router.post('/reset/:token', function(req, res) {
+router.post('/reset/:token', middleware.sanitizeReset, function(req, res) {
   async.waterfall([
     function(done) {
       User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
