@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Estate Agency</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="/images/img/favicon.png" rel="icon">
+  <link href="/images/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="/stylesheets/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="/stylesheets/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/stylesheets/lib/animate/animate.min.css" rel="stylesheet">
+  <link href="/stylesheets/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="/stylesheets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+
+  <!-- Main Stylesheet File -->
+  <link href="/stylesheets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+    Theme Name: EstateAgency
+    Theme URL: https://bootstrapmade.com/real-estate-agency-bootstrap-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+</head>
+
+<body>
+<!--/ MODAL /-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Register</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/register" method="POST">
+        <div class="form-group">
+          <input type="text" name="username" placeholder="Email" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <input type="text" name="firstName" placeholder="First Name" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <input type="text" name="otherName" placeholder="Other Names" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <input type="Number" name="phoneNumber" placeholder="Phone Number" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <input type="password" name="password" placeholder="Enter Password" class="form-control" required>
+        </div>
+        <div class="form-group">
+          <input type="password" name="confirmPassword" placeholder="Confirm Password" class="form-control" required>
+        </div>
+        
+       
+        <p class="d-inline">Already have an account ?   <button style="color: black; background-color: none; border: none; background: none;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2">Login</button></p>
+      </div>
+      <div class="modal-footer">
+       <input type="submit" value="Register" class="btn btn-success">
+      
+      </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/login" method="POST">
+        <div class="form-group">
+          <input type="text" name="username" placeholder="Email" class="form-control" required>
+        </div>
+      
+        <div class="form-group">
+          <input type="password" name="password" placeholder="Enter Password" class="form-control" required>
+        </div>
+       
+        <p class="d-inline"><a style="text-decoration: none; margin-right: 10px;" href="/resetpassword">Forgot Password</a></p>
+        <p class="d-inline">Don't have an account ?   <button style="color: black; background-color: none; border: none; background: none;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Register</button></p>
+        
+      </div>
+      <div class="modal-footer">
+       <input type="submit" value="Login" class="btn btn-success">
+      
+      </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Rent Service</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas pariatur recusandae dolores laboriosam optio eveniet voluptatem, dignissimos placeat quia, tempore ratione laudantium odio repudiandae veritatis necessitatibus autem, natus dolore unde.
+        </p>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt incidunt, harum laborum voluptatibus repellat perspiciatis asperiores nemo iusto adipisci quam! Eveniet debitis, quos ipsum error cumque distinctio blanditiis iste amet.</p>
+      </div>
+      <div class="modal-footer">
+       <!-- <input type="submit" value="Register" class="btn btn-success"> -->
+      
+      </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Sale Service</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas pariatur recusandae dolores laboriosam optio eveniet voluptatem, dignissimos placeat quia, tempore ratione laudantium odio repudiandae veritatis necessitatibus autem, natus dolore unde.
+        </p>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt incidunt, harum laborum voluptatibus repellat perspiciatis asperiores nemo iusto adipisci quam! Eveniet debitis, quos ipsum error cumque distinctio blanditiis iste amet.</p>
+      </div>
+      <div class="modal-footer">
+       <!-- <input type="submit" value="Register" class="btn btn-success"> -->
+      
+      </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="exampleModal5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Mortgage Service</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptas pariatur recusandae dolores laboriosam optio eveniet voluptatem, dignissimos placeat quia, tempore ratione laudantium odio repudiandae veritatis necessitatibus autem, natus dolore unde.
+        </p>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nesciunt incidunt, harum laborum voluptatibus repellat perspiciatis asperiores nemo iusto adipisci quam! Eveniet debitis, quos ipsum error cumque distinctio blanditiis iste amet.</p>
+      </div>
+      <div class="modal-footer">
+       <!-- <input type="submit" value="Register" class="btn btn-success"> -->
+      
+      </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+  <div class="click-closed"></div>
+  <!--/ Form Search Star /-->
+  <div class="box-collapse">
+    <div class="title-box-d">
+      <h3 class="title-d">Search Property</h3>
+    </div>
+    <span class="close-box-collapse right-boxed ion-ios-close"></span>
+    <div class="box-collapse-wrap form">
+      <form action="/search" class="form-a" method="GET">
+        <div class="row">
+          <div class="col-md-12 mb-2">
+            <div class="form-group">
+              <label for="Type">Keyword</label>
+              <input type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword" name="dsearch">
+            </div>
+          </div>
+         
+          
+          <div class="col-md-12">
+            <button type="submit" class="btn btn-b">Search Property</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  
+  <!--/ Form Search End /-->
+ 
+
+
+
+  <!--/ Nav Star /-->
+  <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
+    <div class="container">
+      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
+        aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <a class="navbar-brand text-brand" href="/home">Estate<span class="color-b">Agency</span></a>
+      <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none" data-toggle="collapse"
+        data-target="#navbarTogglerDemo01" aria-expanded="false">
+        <span class="fa fa-search" aria-hidden="true"></span>
+      </button>
+      <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link active" href="/home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/property">Property</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/blogs">Blog</a>
+          </li>
+         
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Contact</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Account
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+             <% if(currentUser){ %>
+              <% if(currentUser.isAdmin === true){ %>
+                <a class="dropdown-item" href="/admin/dashboard">Admin Dashboard</a>
+                <a class="dropdown-item" href="/logout">Logout</a>
+               
+              <% }else{ %>
+                <a class="dropdown-item" href="/user/userprofile/<%=currentUser._id%>">View Profile</a>
+               <a class="dropdown-item" href="/logout">Logout</a>
+             <% } %>
+              
+             
+               
+              <% }else{ %>
+                
+                <div>
+                  <button style="color: black; background-color: none; border: none; background: none;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Register</button>
+                </div>
+                
+                <div>
+                  <button style="color: black; background-color: none; border: none; background: none;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2">Login</button>
+        
+                </div>
+                
+            
+            
+             
+            </div>
+            <% } %>
+          </li>
+        </ul>
+      </div>
+      <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
+        data-target="#navbarTogglerDemo01" aria-expanded="false">
+        <span class="fa fa-search" aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+  <!--/ Nav End /-->
+
+  <!--/ Carousel Star /-->
+  <div class="intro intro-carousel">
+    <div id="carousel" class="owl-carousel owl-theme">
+      <div class="carousel-item-a intro-item bg-image" style="background-image: url(/images/img/slide-1.jpg)">
+        <div class="overlay overlay-a"></div>
+        <div class="intro-content display-table">
+          <div class="table-cell">
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-8">
+                  <div class="intro-body">
+                    <p class="intro-title-top">Abuja, Nigeria
+                      <br> 78345</p>
+                    <h1 class="intro-title mb-4">
+                      <span class="color-b">204 </span> Bida
+                      <br> Gwagalada Road</h1>
+                    <p class="intro-subtitle intro-price">
+                      <a href="#"><span class="price-a">Rent | N 120,000</span></a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item-a intro-item bg-image" style="background-image: url(/images/img/slide-2.jpg)">
+        <div class="overlay overlay-a"></div>
+        <div class="intro-content display-table">
+          <div class="table-cell">
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-8">
+                  <div class="intro-body">
+                    <p class="intro-title-top">Lagos Island, Lagos
+                      <br> 78345</p>
+                    <h1 class="intro-title mb-4">
+                      <span class="color-b">204 </span> Akinlade
+                      <br> Akinlade Close, Lagos</h1>
+                    <p class="intro-subtitle intro-price">
+                      <a href="#"><span class="price-a">Price | N 12,300,000</span></a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="carousel-item-a intro-item bg-image" style="background-image: url(/images/img/slide-3.jpg)">
+        <div class="overlay overlay-a"></div>
+        <div class="intro-content display-table">
+          <div class="table-cell">
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-8">
+                  <div class="intro-body">
+                    <p class="intro-title-top">Banana Island, Lagos
+                      <br> 78345</p>
+                    <h1 class="intro-title mb-4">
+                      <span class="color-b">20 </span> Abraham Adesanya
+                      <br> Banana Islnd, Lagos</h1>
+                    <p class="intro-subtitle intro-price">
+                      <a href="#"><span class="price-a">Rent | N 120,000</span></a>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--/ Carousel end /-->
+  <p><%=error%></p>
+  <!--/ Services Star /-->
+  <section class="section-services section-t8">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="title-wrap d-flex justify-content-between">
+            <div class="title-box">
+              <h2 class="title-a">Our Services</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-4">
+          <div class="card-box-c foo">
+            <div class="card-header-c d-flex">
+              <div class="card-box-ico">
+                <span class="fa fa-gamepad"></span>
+              </div>
+              <div class="card-title-c align-self-center">
+                <h2 class="title-c">Rent Service</h2>
+              </div>
+            </div>
+            <div class="card-body-c">
+              <p class="content-c">
+                We offer the best properties available for rent all over the major cities in Nigeria
+              </p>
+            </div>
+            <div class="card-footer-c">
+              <a href="#" class="link-c link-icon"> <button style="color: black; background-color: none; border: none; background: none;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal3">Read More ...</button>
+               
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-box-c foo">
+            <div class="card-header-c d-flex">
+              <div class="card-box-ico">
+                <span class="fa fa-usd"></span>
+              </div>
+              <div class="card-title-c align-self-center">
+                <h2 class="title-c">Mortgage Service</h2>
+              </div>
+            </div>
+            <div class="card-body-c">
+              <p class="content-c">
+               We also have properties available on mortgage, suitable for you and your family in conducive environment and pocket friendly prices
+              </p>
+            </div>
+            <div class="card-footer-c">
+              <a href="#" class="link-c link-icon"><button style="color: black; background-color: none; border: none; background: none;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal5">Read More ...</button>
+               
+              </a>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card-box-c foo">
+            <div class="card-header-c d-flex">
+              <div class="card-box-ico">
+                <span class="fa fa-home"></span>
+              </div>
+              <div class="card-title-c align-self-center">
+                <h2 class="title-c">Sale Service</h2>
+              </div>
+            </div>
+            <div class="card-body-c">
+              <p class="content-c">
+               We have properties suitable for you and your family available for outright ownership at good prices and are situated in good and conducive environment
+              </p>
+            </div>
+            <div class="card-footer-c">
+              <a href="#" class="link-c link-icon"><button style="color: black; background-color: none; border: none; background: none;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal4">Read More ...</button>
+               
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ Services End /-->
+
+  <!--/ Property Star /-->
+  <section class="section-property section-t8">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="title-wrap d-flex justify-content-between">
+            <div class="title-box">
+              <h2 class="title-a">Latest Properties</h2>
+            </div>
+            <div class="title-link">
+              <a href="/property">All Property
+                <!-- <span class="ion-ios-arrow-forward"></span> -->
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="property-carousel" class="owl-carousel owl-theme">
+       <% data.forEach(function(data){ %>
+        <div class="carousel-item-b">
+          <div class="card-box-a card-shadow">
+            <div class="img-box-a">
+              <img src="/<%=data.picspath[0]%>" alt="" class="img-a img-fluid">
+            </div>
+            <div class="card-overlay">
+              <div class="card-overlay-a-content">
+                <div class="card-header-a">
+                  <h2 class="card-title-a">
+                    <a href="property-single.html"><%=data.address%>
+                      <!-- <br /> Olive Road Two</a> -->
+                  </h2>
+                </div>
+                <div class="card-body-a">
+                  <div class="price-box d-flex">
+                    <span class="price-a"><%=data.method %> | N <%=data.price%></span>
+                  </div>
+                  <a href="/property/<%=data._id%>" class="link-a">Click here to view
+                    <span class="ion-ios-arrow-forward"></span>
+                  </a>
+                </div>
+                <div class="card-footer-a">
+                  <ul class="card-info d-flex justify-content-around">
+                    <li>
+                      <h4 class="card-info-title">Location</h4>
+                      <span><%=data.location%>
+                        <!-- <sup>2</sup> -->
+                      </span>
+                    </li>
+                    <li>
+                      <h4 class="card-info-title">Type</h4>
+                      <span><%=data.type%></span>
+                    </li>
+                    <li>
+                      <h4 class="card-info-title">Status</h4>
+                      <span><%=data.method%></span>
+                    </li>
+                    <li>
+                      <h4 class="card-info-title">Bed Rooms</h4>
+                      <span><%=data.bedroom%></span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+       
+        
+        
+          <% }) %>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ Property End /-->
+
+ 
+  <!--/ News Star /-->
+  <section class="section-news section-t8">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="title-wrap d-flex justify-content-between">
+            <div class="title-box">
+              <h2 class="title-a">Latest News</h2>
+            </div>
+            <div class="title-link">
+              <a href="blog-grid.html">All News
+                <span class="ion-ios-arrow-forward"></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="new-carousel" class="owl-carousel owl-theme">
+        <div class="carousel-item-c">
+          <div class="card-box-b card-shadow news-box">
+            <div class="img-box-b">
+              <img src="/images/img/post-2.jpg" alt="" class="img-b img-fluid">
+            </div>
+            <div class="card-overlay">
+              <div class="card-header-b">
+                <div class="card-category-b">
+                  <a href="#" class="category-b">House</a>
+                </div>
+                <div class="card-title-b">
+                  <h2 class="title-2">
+                    <a href="blog-single.html">House is comming
+                      <br> new</a>
+                  </h2>
+                </div>
+                <div class="card-date">
+                  <span class="date-b">18 Sep. 2017</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item-c">
+          <div class="card-box-b card-shadow news-box">
+            <div class="img-box-b">
+              <img src="/images/img/post-5.jpg" alt="" class="img-b img-fluid">
+            </div>
+            <div class="card-overlay">
+              <div class="card-header-b">
+                <div class="card-category-b">
+                  <a href="#" class="category-b">Travel</a>
+                </div>
+                <div class="card-title-b">
+                  <h2 class="title-2">
+                    <a href="blog-single.html">Travel is comming
+                      <br> new</a>
+                  </h2>
+                </div>
+                <div class="card-date">
+                  <span class="date-b">18 Sep. 2017</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item-c">
+          <div class="card-box-b card-shadow news-box">
+            <div class="img-box-b">
+              <img src="/images/img/post-7.jpg" alt="" class="img-b img-fluid">
+            </div>
+            <div class="card-overlay">
+              <div class="card-header-b">
+                <div class="card-category-b">
+                  <a href="#" class="category-b">Park</a>
+                </div>
+                <div class="card-title-b">
+                  <h2 class="title-2">
+                    <a href="blog-single.html">Park is comming
+                      <br> new</a>
+                  </h2>
+                </div>
+                <div class="card-date">
+                  <span class="date-b">18 Sep. 2017</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="carousel-item-c">
+          <div class="card-box-b card-shadow news-box">
+            <div class="img-box-b">
+              <img src="/images/img/post-3.jpg" alt="" class="img-b img-fluid">
+            </div>
+            <div class="card-overlay">
+              <div class="card-header-b">
+                <div class="card-category-b">
+                  <a href="#" class="category-b">Travel</a>
+                </div>
+                <div class="card-title-b">
+                  <h2 class="title-2">
+                    <a href="#">Travel is comming
+                      <br> new</a>
+                  </h2>
+                </div>
+                <div class="card-date">
+                  <span class="date-b">18 Sep. 2017</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ News End /-->
+
+ 
+  <!--/ Testimonials End /-->
+
+  <!--/ footer Star /-->
+  <section class="section-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-4">
+          <div class="widget-a">
+            <div class="w-header-a">
+              <h3 class="w-title-a text-brand">EstateAgency</h3>
+            </div>
+            <div class="w-body-a">
+              <p class="w-text-a color-text-a">
+                We got you covered for all types of properties you wish to possess all over Nigeria
+              </p>
+            </div>
+            <div class="w-footer-a">
+           
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-4 section-md-t3">
+          <div class="widget-a">
+            <div class="w-header-a">
+              <h3 class="w-title-a text-brand">The Company</h3>
+            </div>
+            <div class="w-body-a">
+              <div class="w-body-a">
+                <ul class="list-unstyled">
+                 
+                 
+                  <li class="item-list-a">
+                    <i class="fa fa-angle-right"></i> <a href="/agents">Agent Admin</a>
+                  </li>
+                  <li class="item-list-a">
+                    <i class="fa fa-angle-right"></i> <a href="#">Careers</a>
+                  </li>
+                 
+                  <li class="item-list-a">
+                    <i class="fa fa-angle-right"></i> <a href="#">Privacy Policy</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-4 section-md-t3">
+          <div class="widget-a">
+            <div class="w-header-a">
+              <h3 class="w-title-a text-brand">Locations</h3>
+            </div>
+            <div class="w-body-a">
+              <ul class="list-unstyled">
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i> <a href="#">Lagos</a>
+                </li>
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i> <a href="#">Abuja</a>
+                </li>
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i> <a href="#">Abeokuta</a>
+                </li>
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i> <a href="#">Benin</a>
+                </li>
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i> <a href="#">Kaduna</a>
+                </li>
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i> <a href="#">Warri</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+        
+          <div class="copyright-footer">
+            <p class="copyright color-text-a">
+              &copy; Copyright
+              <span class="color-a">EstateAgency</span> All Rights Reserved.  Designed by <a href="#">infinite_Ideas</a>
+            </p>
+          </div>
+          <div class="credits">
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!--/ Footer End /-->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <div id="preloader"></div>
+
+  <!-- JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+  <script src="/javascripts/lib/jquery/jquery.min.js"></script>
+  <script src="/javascripts/lib/jquery/jquery-migrate.min.js"></script>
+  <script src="/javascripts/lib/popper/popper.min.js"></script>
+  <script src="/javascripts/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/javascripts/lib/easing/easing.min.js"></script>
+  <script src="/javascripts/lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="/javascripts/lib/scrollreveal/scrollreveal.min.js"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="/javascripts/contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="/javascripts/js/main.js"></script>
+
+</body>
+</html>

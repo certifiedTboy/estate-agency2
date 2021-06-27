@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Estate Agency</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="/images/img/favicon.png" rel="icon">
+  <link href="/images/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="/stylesheets/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="/stylesheets/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/stylesheets/lib/animate/animate.min.css" rel="stylesheet">
+  <link href="/stylesheets/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="/stylesheets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+ 
+
+  <!-- Main Stylesheet File -->
+ 
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+  <link href="/stylesheets/css/style.css" rel="stylesheet">
+  <!-- =======================================================
+    Theme Name: EstateAgency
+    Theme URL: https://bootstrapmade.com/real-estate-agency-bootstrap-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+</head>
+
+<body>
+ <!--/ MODAL /-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Post Property</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/property/<%=data.id%>?_method=PUT" method="POST" enctype="multipart/form-data">
+ 
+       
+        <div class="form-group">
+          <select style="width: 220px; display: inline;"  class="form-control" name="type" id="">
+            <option class="form-control" value="<%=data.type%>"><%=data.type%></option>
+              <option class="form-control" value="Flat">Flat</option>
+
+              <option class="form-control" value="Self Contain">Self Contain</option>
+              <option class="form-control" value="Bungalow">Bungalow</option>
+              <option class="form-control" value="Duplex">Duplex</option>
+          </select>
+          <select style="width: 220px; display: inline;" class="form-control" name="method" id="">
+            <option class="form-control" value="<%=data.method%>"><%=data.method%></option>
+              <option class="form-control" value="For sale">For Sale</option>
+
+              <option class="form-control" value="For Rent">For Rent</option>
+              <option class="form-control" value="Mortgage">Mortgage</option>
+              
+          </select>
+        </div>
+        <div class="form-group">
+            <input type="Number" class="form-control" name="price" value="<%=data.price%>" required>
+        </div>
+        <div class="form-group">
+          <select style="width: 220px; display: inline;"  class="form-control" name="bedroom" id="">
+            <option class="form-control" value="<%=data.bedroom%>"><%=data.bedroom%> Bed Rooms</option>
+              <option class="form-control" value="01">01</option>
+
+              <option class="form-control" value="02">02</option>
+              <option class="form-control" value="03">03</option>
+              <option class="form-control" value="04">04</option>
+              <option class="form-control" value="05">05</option>
+          </select>
+          <select style="width: 220px; display: inline;"  class="form-control" name="location" id="">
+            <option class="form-control" value="<%=data.location%>"><%=data.location%></option>
+              <option class="form-control" value="Lagos">Lagos</option>
+              <option class="form-control" value="Abuja">Abuja</option>
+              <option class="form-control" value="Abeokuta">Abeokuta</option>
+              <option class="form-control" value="Kaduna">Kaduna</option>
+              <option class="form-control" value="Benin">Benin</option>
+              <option class="form-control" value="Kano">Kano</option>
+              <option class="form-control" value="Calabar">Calabar</option>
+          </select>
+         
+        </div>
+        <div class="form-group">
+          <select style="width: 220px; display: inline;"  class="form-control" name="bathroom" id="">
+            <option class="form-control" value="<%=data.bathroom%>"><%=data.bathroom%> Bathrooms</option>
+              <option class="form-control" value="01">01</option>
+
+              <option class="form-control" value="02">02</option>
+              <option class="form-control" value="03">03</option>
+              <option class="form-control" value="04">04</option>
+              <option class="form-control" value="05">05</option>
+          </select>
+          <select style="width: 220px; display: inline;"  class="form-control" name="period" id="">
+            <option class="form-control" value="<%=data.period%>"><%=data.period%></option>
+            <option class="form-control" value="Weekly">Weekly</option>
+
+            <option class="form-control" value="Monthly">Monthly</option>
+            <option class="form-control" value="Quarterly">Quarterly</option>
+            <option class="form-control" value="Annually">Annually</option>
+            
+          </select>
+         
+        </div>
+        <div class="form-group">
+            <input type="text" class="form-control" name="address" id="" value="<%=data.address%>">
+        </div>
+        <div class="form-group">
+          <label for="">Parking Space
+            <input type="checkbox" value="Parking Space" name="parkingSpace">
+          </label>
+          <label for="">Garage
+            <input type="checkbox" value="Garage" name="garage">
+          </label>
+          <label for="">Kitchen
+            <input type="checkbox" value="Kitchen" name="kitchen">
+          </label>
+          <label for="">Water
+            <input type="checkbox" value="Water" name="water">
+          </label>
+
+          <label for="">Broadband
+            <input type="checkbox" value="Broadband" name="broadband">
+          </label>
+        
+          <label for="">Drive Way
+            <input type="checkbox" value="Drive Way" name="driveway">
+          </label>
+          <label for="">Security
+            <input type="checkbox" value="Security" name="security">
+          </label>
+          <label for="">Security Gate
+            <input type="checkbox" value="Security Gate" name="securityGate">
+          </label>
+          <label for="">Store
+            <input type="checkbox" value="Store" name="store">
+          </label>
+          <label for="">Garden
+            <input type="checkbox" value="Garden" name="garden">
+          </label>
+        </div>
+       
+        <div class="form-group">
+          <input type="file" name="pic" placeholder="Select File" class="form-control" multiple required>
+        </div>
+        <div class="form-group">
+         <textarea name="description" class="form-control" id="" cols="30" rows="6"> <%=data.description%></textarea>
+        </div>
+       
+       
+
+        
+      </div>
+      <div class="modal-footer">
+       <input type="submit" value="Submit" class="btn btn-success">
+      
+      </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+  <div class="container-fluid">
+    <div class="row">
+        <div class="col-md-3" style="background-color: rgb(39, 39, 83); padding-bottom: 50px; padding-top: 50px;">
+          <div class="card list-group" style="background: none; border: none; line-height: 50px;">
+            <li class="list-group-item " style="background: none; color: rgb(213, 210, 241); border: none;"><strong><span style="margin-right: 10px; font-size: 20px;"><i class="fas fa-chart-line"></i></span><a style="text-decoration: none; color: inherit;" href="/admin/dashboard" title="Go back to Admin Dashboard" >Dashboard</a> </strong></li>
+            <li class="list-group-item " style="background: none; color: rgb(213, 210, 241); border: none;"><strong> <span style="margin-right: 5px; font-size: 20px;"><i class="fas fa-users"></i></span> <a style="text-decoration: none; color: inherit;" href="/admin/users" title="View All Registered users" >Registered Users</a>  </strong></li>
+            <li class="list-group-item " style="background: none; color: rgb(213, 210, 241); border: none;"><strong> <span style="margin-right: 5px; font-size: 20px;"><i class="fas fa-mail-bulk"></i></span> <a style="text-decoration: none; color: inherit;" href="/admin/messages" title="View All Messages" >All Messages</a> </strong></li>
+            <li class="list-group-item active" style="background: none; color: rgb(213, 210, 241); border: none;"><strong> <span style="margin-right: 5px; font-size: 20px;"><i class="fas fa-city"></i></span><a style="text-decoration: none; color: inherit;" href="/admin/properties" title="View All Properties" >All Properties</a> </strong></li>
+            <li class="list-group-item " style="background: none; color: rgb(213, 210, 241); border: none;"><strong> <span style="margin-right: 5px; font-size: 20px;"><i class="fas fa-user-circle"></i></span> <a style="text-decoration: none; color: inherit;" href="/admin/agents" title="View All Registered Agents" >Registered Agents</strong></a></li>
+            <li  class="list-group-item" style="background: none; color: rgb(213, 210, 241); border: none;"><strong> <span style="margin-right: 5px; font-size: 20px;"><i class="fas fa-store-alt"></i></span><a style="text-decoration: none; color: inherit;" href="/admin/rentproperties" title="View Rent Properties" >Rent Properties</a></strong></li>
+            <li  class="list-group-item " style="background: none; color: rgb(213, 210, 241); border: none;"><strong> <span style="margin-right: 5px; font-size: 20px;"><i class="fas fa-house-damage"></i></span><a style="text-decoration: none; color: inherit;" href="/admin/saleproperties" title="View Sale Properties" >Sale Properties </a></strong></li> 
+            <li  class="list-group-item " style="background: none; color: rgb(213, 210, 241); border: none;"><strong> <span style="margin-right: 5px; font-size: 20px;"><i class="fas fa-hotel"></i></span><a style="text-decoration: none; color: inherit;" href="/admin/mortgageproperties" title="View Sale Properties" >Mortgage Properties </a></strong></li> 
+        
+      </div>
+            
+        </div>
+        <div class="col-md-9">
+         
+            <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+                <div class="container-fluid">
+                  <a class="navbar-brand text-brand" href="/home">Estate<span class="color-b">Agency</span></a>
+                  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                  </button>
+                  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                   
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex" style="float: right; margin-left: 550px;">
+                     
+                        <li class="nav-item dropdown">
+                          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <strong><%=currentUser.username%></strong>
+                           </a>
+                           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            
+                             <li><a class="dropdown-item" href="/logout">Logout</a></li>
+                            
+                           </ul>
+                        </li>
+                      
+                      </ul>
+                  </div>
+                </div>
+              </nav>
+              <section class="intro-single p-0 mb-4">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-md-12 col-lg-8">
+                      <div class="title-single-box">
+                        <h1 class="title-single"><%=data.location%></h1>
+                        <span class="color-text-a"><%=data.address%></span>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-lg-4">
+                      <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+                        <ol class="breadcrumb">
+                          <li class="breadcrumb-item">
+                            <a href="/admin/dashboard">Dashboard</a>
+                          </li>
+                          <li class="breadcrumb-item">
+                            <a href="/properties">Properties </a>
+                          </li>
+                          <li class="">
+                             / <%=data.location%>
+                          </li>
+                        </ol>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <!--/ Intro Single End /-->
+            
+             
+              <!--/ Property Single Star /-->
+              <section class="property-single nav-arrow-b">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm-12">
+                      <div id="property-single-carousel" class="owl-carousel owl-arrow gallery-property">
+                        <% data.picspath.forEach(function(path){ %>
+                        <div class="carousel-item-b">
+                          <img src="/<%=path%>" alt="">
+                        </div>
+                       
+                        <%})%>
+                      </div>
+                      <div class="row justify-content-between">
+                        <div class="col-md-5 col-lg-4">
+                          <div class="property-price d-flex justify-content-center foo">
+                            <div class="card-header-c d-flex">
+                              <div class="card-box-ico">
+                                <span class="ion-money">N</span>
+                              </div>
+                              <div class="card-title-c align-self-center">
+                                <h5 class="title-c"><%=data.price%></h5>
+                                <p style="margin-top: -70px; margin-left: 10px;"><%=data.period%></p>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="property-summary">
+                            <div class="row">
+                              <div class="col-sm-12">
+                                <div class="title-box-d section-t4">
+                                  <h3 class="title-d">Quick Summary</h3>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="summary-list">
+                              <ul class="list">
+                                <li class="d-flex justify-content-between">
+                                  <strong>Property ID:</strong>
+                                  <span><%=data.id%></span>
+                                </li>
+                                <li class="d-flex justify-content-between">
+                                  <strong>Date:</strong>
+                                  <span><%=data.createdAt.toDateString()%></span>
+                                </li>
+                                <li class="d-flex justify-content-between">
+                                  <strong>Location:</strong>
+                                  <span><%=data.location%></span>
+                                </li>
+                                <li class="d-flex justify-content-between">
+                                  <strong>Property Type:</strong>
+                                  <span><%=data.type%></span>
+                                </li>
+                                <li class="d-flex justify-content-between">
+                                  <strong>Status:</strong>
+                                  <span><%=data.method%></span>
+                                </li>
+                                <li class="d-flex justify-content-between">
+                                  <strong>Bedroom</strong>
+                                  <span><%=data.bedroom%></span>
+                                </li>
+                               
+                                <li class="d-flex justify-content-between">
+                                  <strong>Baths:</strong>
+                                  <span><%=data.bathroom%></span>
+                                </li>
+                               
+                              </ul>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-7 col-lg-7 section-md-t3">
+                          <div class="row">
+                            <div class="col-sm-12">
+                              <div class="title-box-d">
+                                <h3 class="title-d">Property Description</h3>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="property-description">
+                            <p class="description color-text-a">
+                              <pre style="font: inherit; overflow: hidden; white-space: pre-wrap;  word-wrap: break-word; word-break: keep-all; padding: 0; margin-top: 20px; width: 100%"><%=data.description%></pre>
+                            </p>
+                           
+                          </div>
+                          <div class="row section-t3">
+                            <div class="col-sm-12">
+                              <div class="title-box-d">
+                                <h3 class="title-d">Amenities</h3>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="amenities-list color-text-a">
+                            <ul class="list-a no-margin">
+                              <li>Balcony</li>
+                              <li>Outdoor Kitchen</li>
+                              <li>Cable Tv</li>
+                              <li><%=data.parkingSpace%></li>
+                              <li><%=data.garage%></li>
+                              <li><%=data.water%></li>
+                              <li><%=data.broadband%></li>
+                              <li>Concrete Flooring</li>
+                              <li><%=data.security%></li>
+                              <li><%=data.securityGate%></li>
+                              <li><%=data.store%></li>
+                              <li><%=data.garden%></li>
+                            </ul>
+                          </div>
+                          <div style="margin-bottom: 30px;" class="mt-4">
+                            <button class="btn btn-success" style="width: 150px;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Edit</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  
+                    <div class="col-md-12">
+                      <h1>Responses</h1>
+                      <table class="table table-striped table-hover">
+                        <thead>
+                          <tr>
+                           
+                            <th scope="col">Date</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">First Name</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Message</th>
+                            <th scope="col">Action</th>
+                          </tr>
+                        </thead>
+                     
+                      <% data.response.forEach(function(data){ %>
+                        <tbody>
+                          <tr>
+                            <td><%=data.createdAt.toDateString()%></td>
+                            <td><%=data.user.username%></td>
+                            <td><%=data.user.firstName%></td>
+                            <td><%=data.title%></td>
+                            <td><%=data.message%></td>
+                            <td>
+                              <div class="dropdown" style="">
+                                <button style="background: none; border: none;" class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span style="font-weight: 600; color: rgb(0, 0, 0);"><a style="text-decoration: none; color: rgb(0, 112, 56); font-weight: 700;" href="" > Action</span> 
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style=" border: none;">
+                                  
+                               
+                                <li>
+                                  <a class="btn btn-success" style="background:none; border: none; color:black; font-weight: 600;" href="/admin/response/<%=data._id%>">Chat User</a>	
+                                </li>
+                                <li style="padding-left: 13px; color:black;">
+                                  <form action="/response/<%=data._id%>?_method=DELETE" method="POST"> 
+                                    <input type="submit" value="Delete" style="background: none;  border: none; font-weight: 600; ">
+                                  </form>	
+                                </li>
+                              
+                               
+                                </ul>
+                              
+                                </div>
+  
+                            </td>
+                          </tr>
+                        
+  
+                        </tbody>
+                      <% })%>
+                      </table>
+
+                    </div>
+              </section>
+              <!--/ Property Single End /-->
+            
+                  </div>
+                </div>
+             </div>
+        </div>
+       
+    </div>
+ </div>
+
+
+
+  <!--/ Intro Single star /-->
+  
+
+ <!--/ footer Star /-->
+ <footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+      
+        <div class="copyright-footer">
+          <p class="copyright color-text-a">
+            &copy; Copyright
+            <span class="color-a">EstateAgency</span> All Rights Reserved.  Designed by <a href="#">infinite_Ideas</a>
+          </p>
+        </div>
+       
+      </div>
+    </div>
+  </div>
+</footer>
+<!--/ Footer End /-->
+
+  
+  <!-- JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+  <script src="/javascripts/lib/jquery/jquery.min.js"></script>
+  <script src="/javascripts/lib/jquery/jquery-migrate.min.js"></script>
+  <script src="/javascripts/lib/popper/popper.min.js"></script>
+  <script src="/javascripts/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/javascripts/lib/easing/easing.min.js"></script>
+  <script src="/javascripts/lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="/javascripts/lib/scrollreveal/scrollreveal.min.js"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="/javascripts/contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="/javascripts/js/main.js"></script>
+
+</body>
+</html>

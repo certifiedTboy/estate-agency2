@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Estate Agency</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <meta content="" name="keywords">
+  <meta content="" name="description">
+
+  <!-- Favicons -->
+  <link href="/images/img/favicon.png" rel="icon">
+  <link href="/images/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet">
+
+  <!-- Bootstrap CSS File -->
+  <link href="/stylesheets/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Libraries CSS Files -->
+  <link href="/stylesheets/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="/stylesheets/lib/animate/animate.min.css" rel="stylesheet">
+  <link href="/stylesheets/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
+  <link href="/stylesheets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+  <!-- Main Stylesheet File -->
+  <link href="/stylesheets/css/style.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+
+  <!-- =======================================================
+    Theme Name: EstateAgency
+    Theme URL: https://bootstrapmade.com/real-estate-agency-bootstrap-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
+</head>
+
+<body>
+
+  <div class="click-closed"></div>
+  <!--/ Form Search Star /-->
+  <div class="box-collapse">
+    <div class="title-box-d">
+      <h3 class="title-d">Search Property</h3>
+    </div>
+    <span class="close-box-collapse right-boxed ion-ios-close"></span>
+    <div class="box-collapse-wrap form">
+      <form action="/search" class="form-a" method="GET">
+        <div class="row">
+          <div class="col-md-12 mb-2">
+            <div class="form-group">
+              <label for="Type">Keyword</label>
+              <input type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword" name="dsearch">
+            </div>
+          </div>
+         
+          
+          <div class="col-md-12">
+            <button type="submit" class="btn btn-b">Search Property</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!--/ Form Search End /-->
+ 
+
+
+
+
+  <!--/ Nav Start /-->
+  <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
+    <div class="container">
+      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
+        aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
+      
+      </button>
+      <a class="navbar-brand text-brand" href="/home">Estate<span class="color-b">Agency</span></a>
+      <button type="button" class="btn btn-link nav-search navbar-toggle-box-collapse d-md-none" data-toggle="collapse"
+        data-target="#navbarTogglerDemo01" aria-expanded="false">
+        <span class="fa fa-search" aria-hidden="true"></span>
+      </button>
+      <div class="navbar-collapse collapse justify-content-center" id="navbarDefault">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="/home">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/about">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="/property">Property</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/blogs">Blog</a>
+          </li>
+         
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Contact</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              Account
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+             <% if(currentUser){ %>
+              <% if(currentUser.isAdmin === true){ %>
+                <a class="dropdown-item" href="/admin/dashboard">Admin Dashboard</a>
+                <a class="dropdown-item" href="/logout">Logout</a>
+               
+              <% }else{ %>
+                <a class="dropdown-item" href="/user/userprofile/<%=currentUser._id%>">View Profile</a>
+               <a class="dropdown-item" href="/logout">Logout</a>
+             <% } %>
+              
+             
+               
+              <% }else{ %>
+                
+                <div>
+                  <button style="color: black; background-color: none; border: none; background: none;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Register</button>
+                </div>
+                
+                <div>
+                  <button style="color: black; background-color: none; border: none; background: none;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2">Login</button>
+        
+                </div>
+                
+            
+            
+             
+            </div>
+            <% } %>
+          </li>
+        </ul>
+      </div>
+      <button type="button" class="btn btn-b-n navbar-toggle-box-collapse d-none d-md-block" data-toggle="collapse"
+        data-target="#navbarTogglerDemo01" aria-expanded="false">
+        <span class="fa fa-search" aria-hidden="true"></span>
+      </button>
+    </div>
+  </nav>
+  <!--/ Nav End /-->
+
+  <!--/ Intro Single star /-->
+  <section class="intro-single p-0" style="margin-top: 150px;">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-lg-8">
+          <div class="title-single-box">
+            <h1 class="title-single">Profile Information</h1>
+           
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-4">
+          <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item">
+                <a href="/home">Home</a>
+              </li>
+              <li class="breadcrumb-item">
+                <a href="/user/userprofile">User Profile</a>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                <%=currentUser.otherName%>
+              </li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ Intro Single End /-->
+
+  <!-- / Agent Single Star /-->
+  <section class="agent-single">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="agent-avatar-box">
+                <img src="/images/admin/user1.png" style="width: 200px;" alt="" class="agent-avatar img-fluid">
+              </div>
+             
+            </div>
+          <div class="col-md-3">
+            <div class="agent-info-box">
+              <div class="agent-title">
+                <div class="title-box-d">
+                  <h3 class="title-d"><%=currentUser.firstName%>
+                 <%=currentUser.otherName%></h3>
+                </div>
+              </div>
+              <div class="agent-content mb-3">
+               
+                <div class="info-agents color-a">
+                  <p>
+                    <strong>Phone: </strong>
+                    <span class="color-text-a"> <%=currentUser.phoneNumber%> </span>
+                  </p>
+                 
+                  <p>
+                    <strong>Email: </strong>
+                    <span class="color-text-a"> <%=currentUser.username%></span>
+                  </p>
+                 
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+            <div class="col-md-6 mb-3">
+              <h1>Messages</h1>
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                   
+                    <th scope="col">Date</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Message</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <% data.response.forEach(function(data){ %>
+                <tbody>
+                  <tr>
+                    <td><%=data.createdAt.toDateString()%></td>
+                    <td><%=data.title%></td>
+                    <td><%=data.message%></td>
+                    <td>
+                      <div class="dropdown" style="">
+                        <button style="background: none; border: none;" class="dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        <span style="font-weight: 600; color: rgb(0, 0, 0);"><a style="text-decoration: none; color: rgb(0, 112, 56); font-weight: 700;" href="" > Action</span> 
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1" style=" border: none;">
+                          
+                       
+                        <li>
+                          <a class="btn btn-success" style="background:none; border: none; color:black; font-weight: 600;" href="/response/<%=data._id%>">Chat Admin</a>	
+                        </li>
+                        <li style="padding-left: 13px; color:black;">
+                          <form action="/response/<%=data._id%>?_method=DELETE" method="POST"> 
+                            <input type="submit" value="Delete" style="background: none;  border: none; font-weight: 600; ">
+                          </form>	
+                        </li>
+                      
+                       
+                        </ul>
+                      
+                        </div>
+
+                    </td>
+                  </tr>
+                </tbody>
+                <% }) %>
+              </table>
+          </div>
+          </div>
+         
+        </div>
+      
+        </div>
+      </div>
+    </div>
+  </section>
+  <!--/ Agent Single End / -->
+
+  <!--/ footer Star /-->
+  <section class="section-footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12 col-md-4">
+          <div class="widget-a">
+            <div class="w-header-a">
+              <h3 class="w-title-a text-brand">EstateAgency</h3>
+            </div>
+            <div class="w-body-a">
+              <p class="w-text-a color-text-a">
+                We got you covered for all types of properties you wish to possess all over Nigeria
+              </p>
+            </div>
+            <div class="w-footer-a">
+           
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-4 section-md-t3">
+          <div class="widget-a">
+            <div class="w-header-a">
+              <h3 class="w-title-a text-brand">The Company</h3>
+            </div>
+            <div class="w-body-a">
+              <div class="w-body-a">
+                <ul class="list-unstyled">
+                 
+                 
+                  <li class="item-list-a">
+                    <i class="fa fa-angle-right"></i> <a href="/agents">Agent Admin</a>
+                  </li>
+                  <li class="item-list-a">
+                    <i class="fa fa-angle-right"></i> <a href="#">Careers</a>
+                  </li>
+                 
+                  <li class="item-list-a">
+                    <i class="fa fa-angle-right"></i> <a href="#">Privacy Policy</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-4 section-md-t3">
+          <div class="widget-a">
+            <div class="w-header-a">
+              <h3 class="w-title-a text-brand">Locations</h3>
+            </div>
+            <div class="w-body-a">
+              <ul class="list-unstyled">
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i> <a href="#">Lagos</a>
+                </li>
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i> <a href="#">Abuja</a>
+                </li>
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i> <a href="#">Abeokuta</a>
+                </li>
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i> <a href="#">Benin</a>
+                </li>
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i> <a href="#">Kaduna</a>
+                </li>
+                <li class="item-list-a">
+                  <i class="fa fa-angle-right"></i> <a href="#">Warri</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <footer>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+        
+          <div class="copyright-footer">
+            <p class="copyright color-text-a">
+              &copy; Copyright
+              <span class="color-a">EstateAgency</span> All Rights Reserved.  Designed by <a href="#">infinite_Ideas</a>
+            </p>
+          </div>
+          <div class="credits">
+           
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!--/ Footer End /-->
+
+  <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
+  <div id="preloader"></div>
+
+  <!-- JavaScript Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+
+  <script src="/javascripts/lib/jquery/jquery.min.js"></script>
+  <script src="/javascripts/lib/jquery/jquery-migrate.min.js"></script>
+  <script src="/javascripts/lib/popper/popper.min.js"></script>
+  <script src="/javascripts/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="/javascripts/lib/easing/easing.min.js"></script>
+  <script src="/javascripts/lib/owlcarousel/owl.carousel.min.js"></script>
+  <script src="/javascripts/lib/scrollreveal/scrollreveal.min.js"></script>
+  <!-- Contact Form JavaScript File -->
+  <script src="/javascripts/contactform/contactform.js"></script>
+
+  <!-- Template Main Javascript File -->
+  <script src="/javascripts/js/main.js"></script>
+
+</body>
+</html>
