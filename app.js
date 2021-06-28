@@ -1,3 +1,4 @@
+'use strict';
 var express = require('express');  
 var bodyParser = require('body-parser');  
 var multer = require('multer');  
@@ -13,17 +14,16 @@ var indexRoutes = require("./routes/index");
 var passwordRoutes = require("./routes/passwordReset")
 var path = require('path'); 
 var app = express();  
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
 var Message = require("./models/message")
 var response = require("./models/response")
 var mongoose = require("mongoose"); 
 const User = require('./models/user');
+const PORT = process.env.PORT || 3000;
+const server = express()
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-
-
-
-
+var http = require('http').Server(app);
+var io = require('socket.io')(http);
 // var dbUrl = 'mongodb://127.0.0.1:27017/estate-agency'
 var dbUrl = 'mongodb://smssolution:yGHblWA4Vm4LFivj@cluster0-shard-00-00.3wo4h.mongodb.net:27017,cluster0-shard-00-01.3wo4h.mongodb.net:27017,cluster0-shard-00-02.3wo4h.mongodb.net:27017/examsolution?authSource=admin&replicaSet=atlas-8os7kz-shard-0&w=majority&readPreference=primary&retryWrites=true&ssl=true'
 mongoose.connect(dbUrl, {useNewUrlParser:true}, {useUnifiedTopology: true})
@@ -122,33 +122,8 @@ app.use(flash());
 
 
 
-// if (cluster.isMaster) {
-//   console.log(`Master ${process.pid} is running`);
-
-//   const httpServer = http.createServer();
-//   setupMaster(httpServer, {
-//     loadBalancingMethod: "least-connection", // either "random", "round-robin" or "least-connection"
-//   });
-//   httpServer.listen(3000);
-
-//   for (let i = 0; i < numCPUs; i++) {
-//     cluster.fork();
-//   }
-
-//   cluster.on("exit", (worker) => {
-//     console.log(`Worker ${worker.process.pid} died`);
-//     cluster.fork();
-//   });
-// } else {
-//   console.log(`Worker ${process.pid} started`);
-
-// }
 
 
-  // var server = http.listen(3000, () => {
-  //   console.log('server is running on port', server.address().port);
-  // });
-
-  app.listen(process.env.PORT || 3000, process.env.IP, function(){
-    console.log("estate agency is live")
-  })
+  // app.listen(process.env.PORT || 3000, process.env.IP, function(){
+  //   console.log("estate agency is live")
+  // })
