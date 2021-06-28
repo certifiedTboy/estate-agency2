@@ -22,7 +22,11 @@ const User = require('./models/user');
 
 
 
-mongoose.connect('mongodb://smssolution:yGHblWA4Vm4LFivj@cluster0-shard-00-00.3wo4h.mongodb.net:27017,cluster0-shard-00-01.3wo4h.mongodb.net:27017,cluster0-shard-00-02.3wo4h.mongodb.net:27017/estate-agency?authSource=admin&replicaSet=atlas-8os7kz-shard-0&w=majority&readPreference=primary&retryWrites=true&ssl=true', {useNewUrlParser:true}, {useUnifiedTopology: true})
+
+
+// var dbUrl = 'mongodb://127.0.0.1:27017/estate-agency'
+var dbUrl = 'mongodb://smssolution:yGHblWA4Vm4LFivj@cluster0-shard-00-00.3wo4h.mongodb.net:27017,cluster0-shard-00-01.3wo4h.mongodb.net:27017,cluster0-shard-00-02.3wo4h.mongodb.net:27017/examsolution?authSource=admin&replicaSet=atlas-8os7kz-shard-0&w=majority&readPreference=primary&retryWrites=true&ssl=true'
+mongoose.connect(dbUrl, {useNewUrlParser:true}, {useUnifiedTopology: true})
 .then(()=>console.log('connectd to db'))
 .catch((err)=>console.log('error ',err));
 
@@ -105,9 +109,7 @@ app.use(flash());
 
 
   io.on('connection', (socket)=>{
-    /*from server side we will emit 'display' event once the user starts typing
-    so that on the client side we can capture this event and display 
-    '<data.user> is typing...' */
+  
     socket.on('typing', (data)=>{
       if(data.typing==true)
          io.emit('display', data)
@@ -120,12 +122,33 @@ app.use(flash());
 
 
 
+// if (cluster.isMaster) {
+//   console.log(`Master ${process.pid} is running`);
+
+//   const httpServer = http.createServer();
+//   setupMaster(httpServer, {
+//     loadBalancingMethod: "least-connection", // either "random", "round-robin" or "least-connection"
+//   });
+//   httpServer.listen(3000);
+
+//   for (let i = 0; i < numCPUs; i++) {
+//     cluster.fork();
+//   }
+
+//   cluster.on("exit", (worker) => {
+//     console.log(`Worker ${worker.process.pid} died`);
+//     cluster.fork();
+//   });
+// } else {
+//   console.log(`Worker ${process.pid} started`);
+
+// }
 
 
+  // var server = http.listen(3000, () => {
+  //   console.log('server is running on port', server.address().port);
+  // });
 
-  var server = http.listen(3000, () => {
-    console.log('server is running on port', server.address().port);
-  });
-// app.listen(process.env.PORT || 3000, process.env.IP, function(){
-//   console.log("server is live")
-// })
+  app.listen(process.env.PORT || 3000, process.env.IP, function(){
+    console.log("estate agency is live")
+  })
