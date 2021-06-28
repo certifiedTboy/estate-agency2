@@ -1,6 +1,7 @@
 'use strict';
 var express = require('express');  
-var bodyParser = require('body-parser');  
+var bodyParser = require('body-parser'); 
+var app = express() 
 var multer = require('multer');  
 var mongoose = require('mongoose');  
 var methodOverride = require("method-override");
@@ -12,15 +13,12 @@ const middleware = require("./middleware/index")
 const expressSanitizer = require('express-sanitizer');
 var indexRoutes = require("./routes/index");
 var passwordRoutes = require("./routes/passwordReset")
-var path = require('path'); 
-var app = express();  
+var path = require('path');  
 var Message = require("./models/message")
 var response = require("./models/response")
 var mongoose = require("mongoose"); 
 const User = require('./models/user');
 const PORT = process.env.PORT || 3000;
-
-
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 // var dbUrl = 'mongodb://127.0.0.1:27017/estate-agency'
@@ -28,6 +26,9 @@ var dbUrl = 'mongodb://smssolution:yGHblWA4Vm4LFivj@cluster0-shard-00-00.3wo4h.m
 mongoose.connect(dbUrl, {useNewUrlParser:true}, {useUnifiedTopology: true})
 .then(()=>console.log('connectd to db'))
 .catch((err)=>console.log('error ',err));
+
+
+ 
 
 
 var storage = multer.diskStorage({  
@@ -120,16 +121,13 @@ app.use(flash());
   
 
 
-// const server = app
-//   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 
- 
-   var server = http.listen(3000, () => {
-    console.log('server is running on port',  server.address().port);
+
+// app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+  
+
+  var app = http.listen(3000, () => {
+    console.log('server is running on port', app.address().port);
   });
-
-  // http.listen(3000, () => {
-  //   console.log('server is running on port', server.address().port);
-  // });
   
