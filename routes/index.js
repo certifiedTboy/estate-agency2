@@ -59,13 +59,7 @@ router.use(require("express-session")({
 
 
 // //REGISTERATION ROUTE
-    router.post("/register",(req,res)=>{
-      req.body.username = req.sanitize(req.body.username);
-      req.body.firstName = req.sanitize(req.body.firstName);
-      req.body.otherName = req.sanitize(req.body.otherName);
-      req.body.phoneNumber = req.sanitize(req.body.phoneNumber);
-      req.body.password = req.sanitize(req.body.password);
-      req.body.confirmPassword = req.sanitize(req.body.confirmPassword);
+    router.post("/register", middleware.sanitizeRegister, (req,res)=>{
       if(req.body.password !== req.body.confirmPassword || req.body.password.length < 8){
         req.flash("error", "Password is invalid or Does not match !!!")
         res.redirect("back")
@@ -391,7 +385,7 @@ router.post("/property", upload.array("pic", 30),  middleware.isLoggedIn, middle
     if(err){
       console.log(err)
     }else{
-      console.log(data)
+      
       User.property.push(data)
       User.save()
      

@@ -52,7 +52,18 @@ module.exports = {
         req.body.password = req.sanitize(req.body.password);
         req.body.confirm = req.sanitize(req.body.confirm);
         next()
+      },
+
+      sanitizeRegister: function(req, res, next){
+        req.body.username = req.sanitize(req.body.username);
+          req.body.firstName = req.sanitize(req.body.firstName);
+          req.body.otherName = req.sanitize(req.body.otherName);
+          req.body.phoneNumber = req.sanitize(req.body.phoneNumber);
+          req.body.password = req.sanitize(req.body.password);
+          req.body.confirmPassword = req.sanitize(req.body.confirmPassword);
+        next()
       }
 
+     
   
 }
