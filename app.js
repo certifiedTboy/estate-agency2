@@ -19,8 +19,7 @@ var response = require("./models/response")
 var mongoose = require("mongoose"); 
 const User = require('./models/user');
 const PORT = process.env.PORT || 3000;
-const server = express()
-  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+
 
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -121,7 +120,8 @@ app.use(flash());
   
 
 
-
+const server = app
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 
   // app.listen(process.env.PORT || 3000, process.env.IP, function(){
