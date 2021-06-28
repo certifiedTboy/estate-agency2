@@ -18,12 +18,14 @@ var Message = require("./models/message")
 var response = require("./models/response")
 var mongoose = require("mongoose"); 
 const User = require('./models/user');
-const PORT = process.env.PORT || 3000;
 const httpServer = require("http").createServer(app);
-// var http = require('http').Server(app);
-const io = require("socket.io")(httpServer);
-// var io = require('socket.io')(http);
-// var dbUrl = 'mongodb://127.0.0.1:27017/estate-agency'
+const socketIO = require('socket.io');
+const PORT = process.env.PORT || 3000;
+
+const server = app
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+
 var dbUrl = 'mongodb://smssolution:yGHblWA4Vm4LFivj@cluster0-shard-00-00.3wo4h.mongodb.net:27017,cluster0-shard-00-01.3wo4h.mongodb.net:27017,cluster0-shard-00-02.3wo4h.mongodb.net:27017/estate-agency2?authSource=admin&replicaSet=atlas-8os7kz-shard-0&w=majority&readPreference=primary&retryWrites=true&ssl=true'
 mongoose.connect(dbUrl, {useNewUrlParser:true}, {useUnifiedTopology: true})
 .then(()=>console.log('connectd to db'))
@@ -31,7 +33,7 @@ mongoose.connect(dbUrl, {useNewUrlParser:true}, {useUnifiedTopology: true})
 
 
  
-
+const io = socketIO(server);
 
 var storage = multer.diskStorage({  
     destination:function(req,file,cb){  
@@ -126,10 +128,5 @@ app.use(flash());
 
 
 
-// app.listen(PORT, () => console.log(`Listening on ${PORT}`));
-  
-httpServer.listen(3000);
-  // var app = http.listen(3000, () => {
-  //   console.log('server is running on port', app.address().port);
-  // });
+
   
