@@ -304,13 +304,13 @@
                       
                              
                           function getMessages(){
-                            $.get('http://localhost:3000/response/<%=data.id%>', (data) => {
+                            $.get('https://estate-agency2.herokuapp.com/response/<%=data.id%>', (data) => {
                               data.forEach(addMessages);
                             })
                           }
                       
                           function sendMessage(message){
-                            $.post('http://localhost:3000/response/<%=data.id%>', message)
+                            $.post('https://estate-agency2.herokuapp.com/response/<%=data.id%>', message)
                           }
                       </script>
                 </div>
