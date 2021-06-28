@@ -240,7 +240,8 @@
                         <div class="container">
                           <br>
                           <div class="">
-                            <input type="text" id="typing" >
+                           
+                            <p style="color: white;" class="typing" id="typing"> </p>
                               <br>
                               <input type="hidden" id = "name" value="<%=currentUser.otherName%>" class="form-control" placeholder="Name">
                               <br>
@@ -263,7 +264,7 @@
                         $('.message').keypress((e)=>{
                             if(e.which!=13){
                               typing=true
-                              socket.emit('typing', {user: $("name").val(), typing:true})
+                              socket.emit('typing', {user: $("#name").val(), typing:true})
                               clearTimeout(timeout)
                               timeout=setTimeout(typingTimeout, 3000)
                             }else{
@@ -274,12 +275,13 @@
                             }
                           })
 
-                          //code explained later
-                          socket.on('display', (data)=>{
-                            if(data.typing===true)
-                              $('#typing').text(`${data.user} is typing...`)
-                            else
+                        
+                          socket.on("display", function(data){
+                            if(data.typing===true){
+                              $('#typing').text(`${data.user} is typing ...`)
+                            }else{
                               $('#typing').text("")
+                            }
                           })
                     })
                                     // seding message
@@ -300,20 +302,7 @@
                             
                           }
                       
-                              //  $("#message").keypress(function(){
-                              //     socket.emit("typing", { user: $("#name").val() , message: "is typing..." });
-                              // //  $("#typing").val( $("#name").val() + " is typing")
-                              //  })
-
-                              // socket.on("notifyTyping", data => {
-                              //   $("#typing").val( data.user + " " + data.message)
-                              //   console.log(data.user + data.message);
-                              // });
-                                    
-                              // $("#message").keyup(function(){
-                              //   $("#typing").val("")
-                              //  })
-
+                             
                           function getMessages(){
                             $.get('http://localhost:3000/response/<%=data.id%>', (data) => {
                               data.forEach(addMessages);
