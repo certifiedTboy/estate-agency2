@@ -123,9 +123,9 @@ app.use(flash());
 
 
 
-  // var server = http.listen(3000, () => {
-  //   console.log('server is running on port', server.address().port);
-  // });
-app.listen(process.env.PORT || 3000, process.env.IP, function(){
-  console.log("server is live")
-})
+  var server = http.listen(3000, () => {
+    console.log('server is running on port', server.address().port);
+  });
+// app.listen(process.env.PORT || 3000, process.env.IP, function(){
+//   console.log("server is live")
+// })
