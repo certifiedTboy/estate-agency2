@@ -37,9 +37,21 @@
   ======================================================= -->
   <style>
     .fas{
-      font-size: 25px;
-      color: rgb(63, 199, 95);
+      font-size: 27px;
+      
+      margin-right: 13px;
     }
+    .mobactive{
+      color:rgb(63, 199, 95) !important;
+    }
+
+    @media only screen and (max-width: 600px) {
+		.topmag{
+      padding-top: 0;
+      margin-top: 50px;
+    }
+		} */
+   
   </style>
 </head>
 
@@ -381,6 +393,8 @@
         </div>
     </div>
   </div>
+
+
   <!-- MOBILE VIEW NAV -->
 <div class="container-fluid d-lg-none">
   <div class="row">
@@ -388,31 +402,31 @@
         <ul class="nav nav-tabs">
          
           <li class="nav-item">
-            <a class="nav-link active d-none d-md-block" aria-current="page" href="/">Home</a>
-            <a class="nav-link active d-md-none d-lg-block" aria-current="page" href="/"> <i class="fas fa-store-alt"></i></a>
+            <a class="nav-link active d-none d-md-block mdnav" style="font-size: 25px; font-weight: 600; color: rgb(63, 199, 95);" aria-current="page" href="/" >Home</a>
+            <a class="nav-link active d-md-none d-lg-block mobactive" aria-current="page" href="/home" title="Home"> <i class="fas fa-store-alt"></i></a>
            
           </li>
           <li class="nav-item">
-            <a class="nav-link d-none d-md-block" href="/about">About</a>
-            <a class="nav-link d-md-none d-lg-block " aria-current="page" href="/"> <i class="fas fa-store-alt"></i></a>
+            <a class="nav-link d-none d-md-block mdnav" href="/about" style="font-size: 25px; font-weight: 600; color: rgb(0, 2, 0);">About</a>
+            <a class="nav-link d-md-none d-lg-block " style="color:rgb(0, 2, 0);" aria-current="page" href="/about" title="About"> <i class="fas fa-question-circle"></i></a>
           </li>
          
           <li class="nav-item">
-            <a class="nav-link d-md-none d-lg-block " aria-current="page" href="/"> <i class="fas fa-store-alt"></i></a>
-            <a class="nav-link d-none d-md-block" href="/property">Property</a>
+            <a class="nav-link d-md-none d-lg-block " aria-current="page" style="color:rgb(0, 2, 0);" href="/property" title="Property"> <i class="fas fa-laptop-house"></i></a>
+            <a class="nav-link d-none d-md-block mdnav" href="/property" style="font-size: 25px; font-weight: 600;color: rgb(0, 2, 0);">Property</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link d-md-none d-lg-block " aria-current="page" href="/"> <i class="fas fa-store-alt"></i></a>
-            <a class="nav-link d-none d-md-block" href="/blogs">Blog</a>
+            <a class="nav-link d-md-none d-lg-block " aria-current="page" href="/blogs" style="color:rgb(0, 2, 0);" title="Blogs"> <i class="fas fa-blog"></i></a>
+            <a class="nav-link d-none d-md-block mdnav" href="/blogs" style="font-size: 25px; font-weight: 600; color: rgb(0, 2, 0);">Blog</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link d-md-none d-lg-block" aria-current="page" href="/"> <i class="fas fa-store-alt"></i></a>
-            <a class="nav-link d-none d-md-block" href="/contact">Contact</a>
+            <a class="nav-link d-md-none d-lg-block" aria-current="page" href="/contact" style="color:rgb(0, 2, 0);" title="Contact"> <i class="fas fa-file-signature"></i></a>
+            <a class="nav-link d-none d-md-block mdnav" href="/contact" style="font-size: 25px; font-weight: 600; color: rgb(0, 2, 0);">Contact</a>
           </li>
        
           <li class="nav-item dropdown" style="float: right;" >
-            <a style="color: white; background: rgb(63, 199, 95);" class="nav-link dropdown-toggle btn btn-success d-md-none d-lg-block" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Account</a>
-            <a class="nav-link dropdown-toggle d-none d-md-block"" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Account</a>
+            <a style="color: white; background: rgb(63, 199, 95); " class="nav-link dropdown-toggle btn btn-success d-md-none d-lg-block" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Account</a>
+            <a class="nav-link dropdown-toggle d-none d-md-block" style="font-size: 25px; font-weight: 600; color: rgb(0, 2, 0);" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Account</a>
             <ul class="dropdown-menu">
               <% if(currentUser){ %>
                 <% if(currentUser.isAdmin === true){ %>
@@ -441,7 +455,9 @@
              
             </ul>
           </li>
+        
         </ul>
+        
       </div>
   </div>
 
@@ -456,7 +472,7 @@
   <!--/ Carousel end /-->
   <p><%=error%></p>
   <!--/ Services Star /-->
-  <section class="section-services section-t8">
+  <section class="section-services section-t8 topmag">
     <div class="container">
       <div class="row">
         <div class="col-md-12">
@@ -738,7 +754,7 @@
   <section class="section-footer">
     <div class="container">
       <div class="row">
-        <div class="col-sm-12 col-md-4">
+        <div class=" col-12 col-md-12  col-lg-4">
           <div class="widget-a">
             <div class="w-header-a">
               <h3 class="w-title-a text-brand">EstateAgency</h3>
@@ -753,7 +769,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-12 col-md-4 section-md-t3">
+        <div class="col-6 col-md-4 section-md-t3 d-none d-lg-block">
           <div class="widget-a">
             <div class="w-header-a">
               <h3 class="w-title-a text-brand">The Company</h3>
@@ -778,7 +794,7 @@
             </div>
           </div>
         </div>
-        <div class="col-sm-12 col-md-4 section-md-t3">
+        <div class="col-6 col-md-4 section-md-t3 d-none d-lg-block">
           <div class="widget-a">
             <div class="w-header-a">
               <h3 class="w-title-a text-brand">Locations</h3>
@@ -813,7 +829,7 @@
   <footer>
     <div class="container">
       <div class="row">
-        <div class="col-md-12">
+        <div class="col-12">
         
           <div class="copyright-footer">
             <p class="copyright color-text-a">
@@ -821,9 +837,7 @@
               <span class="color-a">EstateAgency</span> All Rights Reserved.  Designed by <a href="#">infinite_Ideas</a>
             </p>
           </div>
-          <div class="credits">
-           
-          </div>
+          
         </div>
       </div>
     </div>
