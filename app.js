@@ -24,7 +24,7 @@ const PORT = process.env.PORT || 3000;
 
 
 
-
+// var dbUrl = "mongodb://127.0.0.1:27017/estate-agency"
 var dbUrl = 'mongodb://smssolution:yGHblWA4Vm4LFivj@cluster0-shard-00-00.3wo4h.mongodb.net:27017,cluster0-shard-00-01.3wo4h.mongodb.net:27017,cluster0-shard-00-02.3wo4h.mongodb.net:27017/estate-agency2?authSource=admin&replicaSet=atlas-8os7kz-shard-0&w=majority&readPreference=primary&retryWrites=true&ssl=true'
 mongoose.connect(dbUrl, {useNewUrlParser:true}, {useUnifiedTopology: true})
 .then(()=>console.log('connectd to db'))
@@ -105,24 +105,36 @@ app.use(flash());
   
   
   io.on('connection', (socket) => {
-    console.log('a user connected');
+    socket.broadcast.emit("user connect")
     socket.on('disconnect', () => {
-      console.log('user disconnected');
+      socket.broadcast.emit("user disconnected")
     });
   });
 
-
-  io.on('connection', (socket)=>{
+io.on('connection', (socket) => {
+  socket.on('typing', (data)=>{
+    if(data.typing==true)
+       socket.broadcast.emit('display', data)
+    else
+       socket.broadcast.emit('display', data)
+  })
   
-    socket.on('typing', (data)=>{
-      if(data.typing==true)
-         io.emit('display', data)
-      else
-         io.emit('display', data)
-    })
+});
+
+io.on('connection', (socket)=>{
+  
+  socket.on('stopTyping', (data)=>{
+    if(data.typing===false)
+      socket.broadcast.emit('hidden', data)
+    else
+       socket.broadcast.emit('hidden', data)
+  })
+
 }) 
 
-  
+
+
+
 
 
 

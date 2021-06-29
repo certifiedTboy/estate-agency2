@@ -19,6 +19,7 @@
 
   <!-- Libraries CSS Files -->
   <link href="/stylesheets/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="/stylesheets/lib/animate/animate.min.css" rel="stylesheet">
   <link href="/stylesheets/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
   <link href="/stylesheets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
@@ -34,6 +35,12 @@
     Author: BootstrapMade.com
     License: https://bootstrapmade.com/license/
   ======================================================= -->
+  <style>
+    .fas{
+      font-size: 25px;
+      color: rgb(63, 199, 95);
+    }
+  </style>
 </head>
 
 <body>
@@ -211,7 +218,7 @@
 
 
   <!--/ Nav Star /-->
-  <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
+  <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top d-none d-lg-block ">
     <div class="container">
       <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
         aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -288,7 +295,7 @@
   <!--/ Nav End /-->
 
   <!--/ Carousel Star /-->
-  <div class="intro intro-carousel">
+  <div class="intro intro-carousel d-none d-lg-block">
     <div id="carousel" class="owl-carousel owl-theme">
       <div class="carousel-item-a intro-item bg-image" style="background-image: url(/images/img/slide-1.jpg)">
         <div class="overlay overlay-a"></div>
@@ -361,6 +368,91 @@
       </div>
     </div>
   </div>
+  <div class="container d-lg-none">
+    <div class="row">
+      <div class="col-4"> 
+
+      </div>
+        <div class="col-4">
+            <a class="navbar-brand text-brand" href="/home">Estate<span class="color-b">Agency</span></a>
+        </div>
+        <div class="col-4"> 
+
+        </div>
+    </div>
+  </div>
+  <!-- MOBILE VIEW NAV -->
+<div class="container-fluid d-lg-none">
+  <div class="row">
+      <div class="col-12">
+        <ul class="nav nav-tabs">
+         
+          <li class="nav-item">
+            <a class="nav-link active d-none d-md-block" aria-current="page" href="/">Home</a>
+            <a class="nav-link active d-md-none d-lg-block" aria-current="page" href="/"> <i class="fas fa-store-alt"></i></a>
+           
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-none d-md-block" href="/about">About</a>
+            <a class="nav-link d-md-none d-lg-block " aria-current="page" href="/"> <i class="fas fa-store-alt"></i></a>
+          </li>
+         
+          <li class="nav-item">
+            <a class="nav-link d-md-none d-lg-block " aria-current="page" href="/"> <i class="fas fa-store-alt"></i></a>
+            <a class="nav-link d-none d-md-block" href="/property">Property</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-md-none d-lg-block " aria-current="page" href="/"> <i class="fas fa-store-alt"></i></a>
+            <a class="nav-link d-none d-md-block" href="/blogs">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-md-none d-lg-block" aria-current="page" href="/"> <i class="fas fa-store-alt"></i></a>
+            <a class="nav-link d-none d-md-block" href="/contact">Contact</a>
+          </li>
+       
+          <li class="nav-item dropdown" style="float: right;" >
+            <a style="color: white; background: rgb(63, 199, 95);" class="nav-link dropdown-toggle btn btn-success d-md-none d-lg-block" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Account</a>
+            <a class="nav-link dropdown-toggle d-none d-md-block"" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Account</a>
+            <ul class="dropdown-menu">
+              <% if(currentUser){ %>
+                <% if(currentUser.isAdmin === true){ %>
+                  <a class="dropdown-item" href="/admin/dashboard">Admin Dashboard</a>
+                  <a class="dropdown-item" href="/logout">Logout</a>
+                  <% }else{ %>
+                    <a class="dropdown-item" href="/user/userprofile/<%=currentUser._id%>">View Profile</a>
+                   <a class="dropdown-item" href="/logout">Logout</a>
+                 <% } %>
+                 <% }else{ %>
+    
+                  <div>
+                    <button style="color: black; background-color: none; border: none; background: none;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Register</button>
+                  </div>
+                  
+                  <div>
+                    <button style="color: black; background-color: none; border: none; background: none;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2">Login</button>
+              
+                  </div>
+                  
+              
+              
+               
+              </div>
+              <% } %>
+             
+            </ul>
+          </li>
+        </ul>
+      </div>
+  </div>
+
+</div>
+
+   
+ 
+  
+ 
+   
+  
   <!--/ Carousel end /-->
   <p><%=error%></p>
   <!--/ Services Star /-->

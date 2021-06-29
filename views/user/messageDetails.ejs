@@ -284,7 +284,35 @@
                             }
                           })
                     })
-                                    // seding message
+
+                     // STOP TYPING 
+
+                     $(document).ready(function(){
+                          $('.message').keydown((e)=>{
+                            $('.message').keydown(()=>{
+                          
+                          typing=false;
+                          socket.emit('stopTyping', {user: " ", typing:false})
+                          clearTimeout(timeout)
+                          typingTimeout()
+                          //sendMessage() function will be called once the user hits enter
+                          sendMessage()
+                       
+                      })
+                          })
+
+                          socket.on("hidden", function(data){
+                            if(data.typing==false){
+                              $('#typing').text("")
+                            }else{
+                              $('#typing').text("")
+                            }
+                          })
+
+                        
+                    })
+
+                        // seding message
 
                           $(() => {
                               $("#send").click(()=>{
