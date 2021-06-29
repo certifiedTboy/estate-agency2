@@ -19,6 +19,7 @@
 
   <!-- Libraries CSS Files -->
   <link href="/stylesheets/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link href="/stylesheets/lib/animate/animate.min.css" rel="stylesheet">
   <link href="/stylesheets/lib/ionicons/css/ionicons.min.css" rel="stylesheet">
   <link href="/stylesheets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
@@ -93,6 +94,24 @@
 			text-align:center;
 			width:50px;
 		}
+   
+    .fas{
+      font-size: 27px;
+      
+      margin-right: 13px;
+    }
+    .mobactive{
+      color:rgb(63, 199, 95) !important;
+    }
+
+    @media only screen and (max-width: 600px) {
+		.topmag{
+      padding-top: 0;
+      margin-top: 50px;
+    }
+		} */
+   
+  
  
 </style>
 <body>
@@ -124,7 +143,7 @@
     </div>
   </div>
    <!--/ Nav Star /-->
-  <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top">
+  <nav class="navbar navbar-default navbar-trans navbar-expand-lg fixed-top d-none d-lg-block">
     <div class="container">
       <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarDefault"
         aria-controls="navbarDefault" aria-expanded="false" aria-label="Toggle navigation">
@@ -199,6 +218,88 @@
     </div>
   </nav>
   <!--/ Nav End /-->
+
+
+  <div class="container d-lg-none" >
+    <div class="row">
+      <div class="col-4"> 
+
+      </div>
+        <div class="col-4">
+            <a class="navbar-brand text-brand" href="/home">Estate<span class="color-b">Agency</span></a>
+        </div>
+        <div class="col-4"> 
+
+        </div>
+    </div>
+  </div>
+<!-- MOBILE VIEW NAV -->
+<div class="container-fluid d-lg-none" style="margin-bottom: 40px;">
+  <div class="row">
+      <div class="col-12">
+        <ul class="nav nav-tabs">
+         
+          <li class="nav-item">
+            <a class="nav-link d-none d-md-block mdnav" style="font-size: 25px; font-weight: 600; color: rgb(0, 2, 0);" aria-current="page" href="/" >Home</a>
+            <a class="nav-link  d-md-none d-lg-block" style="color:  rgb(0, 2, 0);" aria-current="page" href="/home" title="Home"> <i class="fas fa-store-alt"></i></a>
+           
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-none d-md-block mdnav" href="/about" style="font-size: 25px; font-weight: 600; color: rgb(0, 2, 0);">About</a>
+            <a class="nav-link d-md-none d-lg-block  " style="color:  rgb(0, 2, 0);" aria-current="page" href="/about" title="About"> <i class="fas fa-question-circle"></i></a>
+          </li>
+         
+          <li class="nav-item">
+            <a class="nav-link d-md-none  d-lg-block active  mobactive " style="color:  rgb(0, 2, 0);" aria-current="page" href="/property" title="Property"> <i class="fas fa-laptop-house"></i></a>
+            <a class="nav-link d-none d-md-block mdnav active" href="/property" style="font-size: 25px; font-weight: 600; color: rgb(63, 199, 95);">Property</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-md-none d-lg-block " style="color:  rgb(0, 2, 0);" aria-current="page" href="/blogs" title="Blogs"> <i class="fas fa-blog"></i></a>
+            <a class="nav-link d-none d-md-block mdnav" href="/blogs" style="font-size: 25px; font-weight: 600; color: rgb(0, 2, 0);">Blog</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link d-md-none d-lg-block" style="color:  rgb(0, 2, 0);" aria-current="page" href="/contact" title="Contact"> <i class="fas fa-file-signature"></i></a>
+            <a class="nav-link d-none d-md-block mdnav" href="/contact" style="font-size: 25px; font-weight: 600; color: rgb(0, 2, 0);">Contact</a>
+          </li>
+       
+          <li class="nav-item dropdown" style="float: right;" >
+            <a style="color: white; background: rgb(63, 199, 95); " class="nav-link dropdown-toggle btn btn-success d-md-none d-lg-block" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Account</a>
+            <a class="nav-link dropdown-toggle d-none d-md-block" style="font-size: 25px; font-weight: 600; color: rgb(0, 2, 0);" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Account</a>
+            <ul class="dropdown-menu">
+              <% if(currentUser){ %>
+                <% if(currentUser.isAdmin === true){ %>
+                  <a class="dropdown-item" href="/admin/dashboard">Admin Dashboard</a>
+                  <a class="dropdown-item" href="/logout">Logout</a>
+                  <% }else{ %>
+                    <a class="dropdown-item" href="/user/userprofile/<%=currentUser._id%>">View Profile</a>
+                   <a class="dropdown-item" href="/logout">Logout</a>
+                 <% } %>
+                 <% }else{ %>
+    
+                  <div>
+                    <button style="color: black; background-color: none; border: none; background: none;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal">Register</button>
+                  </div>
+                  
+                  <div>
+                    <button style="color: black; background-color: none; border: none; background: none;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2">Login</button>
+              
+                  </div>
+                  
+              
+              
+               
+              </div>
+              <% } %>
+             
+            </ul>
+          </li>
+        
+        </ul>
+        
+      </div>
+  </div>
+
+</div>
 
  <div class="container-fluid">
     <div class="row">
