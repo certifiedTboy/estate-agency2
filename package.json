@@ -4,10 +4,11 @@
   "description": "Realtime chat app with rooms",
   "main": "server.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
-  "author": "Brad Traversy",
-  "license": "MIT",
+  "author": "adebisi tosin",
+  "license": "ISC",
   "dependencies": {
     "connect-flash": "^0.1.1",
     "ejs": "^3.1.6",
@@ -25,6 +26,5 @@
     "passport-local-mongoose": "^6.1.0",
     "save": "^2.4.0",
     "socket.io": "^2.4.0"
-  },
-  "devDependencies": {}
+  }
 }
