@@ -14,6 +14,7 @@ var User = require("../models/user");
 const Property = require("../models/property")
 const response = require("../models/response")
 const Message = require("../models/message");
+const Chat = require('../models/Chat');
 
 
 var router = express.Router();
@@ -126,23 +127,26 @@ router.use(require("express-session")({
        if(err){
          console.log(err)
        }else{
-        res.render("user/userprofile", {data:data})
+        res.render("rooms", {data:data})
        }
      })
     
    })
 
 
-    router.get("/response/:id", middleware.isLoggedIn, function(req, res){
-      response.findById(req.params.id).populate("messages").exec(function(err, data){
+    router.get("/response/:message", middleware.isLoggedIn, function(req, res){
+      response.findOne({"message":req.params.message}).populate("Chat").exec(function(err, data){
         if(err){
           console.log(err)
         }else{
-         
-          res.render("user/messageDetails", {data:data})
+          console.log(data)
+          res.render("chat", {data:data})
         }
       })
     })
+
+    
+  
 
    router.delete("/response/:id", function(req, res){
      response.findByIdAndDelete(req.params.id, function(err, data){

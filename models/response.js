@@ -17,10 +17,10 @@ var responseSchema = new Schema({
     otherName: String
 }, 
 
-messages: [
+Chat: [
     {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "message"
+        ref: "Chat"
     }
 ], 
 

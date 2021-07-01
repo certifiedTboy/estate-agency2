@@ -392,8 +392,15 @@
                                   
                                
                                 <li>
-                                  <a class="btn btn-success" style="background:none; border: none; color:black; font-weight: 600;" href="/admin/response/<%=data._id%>">Chat User</a>	
+                                  <a class="btn btn-success" style="background:none; border: none; color:black; font-weight: 600;" href="/admin/response/<%=data._id%>"></a>	
                                 </li>
+                                <li class="">
+                                  <form action="/response/<%=data.message%>">
+                                    <input type="hidden" name="username" id="username" value="<%=currentUser.firstName%>" required/>
+                                    <input type="hidden" value="<%=data.message%>" name="room" id="room">
+                                    <button style="background:none; border: none; color:black; font-weight: 600;" type="submit" class="btn">Chat User</button>
+                                  </form>
+                                   </li>
                                 <li style="padding-left: 13px; color:black;">
                                   <form action="/response/<%=data._id%>?_method=DELETE" method="POST"> 
                                     <input type="submit" value="Delete" style="background: none;  border: none; font-weight: 600; ">

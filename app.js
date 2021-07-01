@@ -7,6 +7,8 @@ var mongoose = require('mongoose');
 var methodOverride = require("method-override");
 var flash = require("connect-flash");
 var LocalStrategy = require("passport-local");
+const formatMessage = require('./utils/messages');
+const {userJoin, getCurrentUser, userLeave, getRoomUsers} = require('./utils/users');
 var ObjectId = require('mongodb').ObjectId; 
 var passport = require("passport");
 const middleware = require("./middleware/index")
@@ -14,10 +16,10 @@ const expressSanitizer = require('express-sanitizer');
 var indexRoutes = require("./routes/index");
 var passwordRoutes = require("./routes/passwordReset")
 var path = require('path');  
-var Message = require("./models/message")
 var response = require("./models/response")
 var mongoose = require("mongoose"); 
 const User = require('./models/user');
+const Chat = require('./models/Chat');
 const httpServer = require("http").createServer(app);
 const socketIO = require('socket.io');
 const PORT = process.env.PORT || 3000;
@@ -26,7 +28,7 @@ const PORT = process.env.PORT || 3000;
 
 // var dbUrl = "mongodb://127.0.0.1:27017/estate-agency"
 var dbUrl = 'mongodb://smssolution:yGHblWA4Vm4LFivj@cluster0-shard-00-00.3wo4h.mongodb.net:27017,cluster0-shard-00-01.3wo4h.mongodb.net:27017,cluster0-shard-00-02.3wo4h.mongodb.net:27017/estate-agency2?authSource=admin&replicaSet=atlas-8os7kz-shard-0&w=majority&readPreference=primary&retryWrites=true&ssl=true'
-mongoose.connect(dbUrl, {useNewUrlParser:true}, {useUnifiedTopology: true})
+var connect = mongoose.connect(dbUrl, {useNewUrlParser:true, useUnifiedTopology: true})
 .then(()=>console.log('connectd to db'))
 .catch((err)=>console.log('error ',err));
 
@@ -57,63 +59,75 @@ app.use(passwordRoutes)
 app.use(flash());
 
 
+const botName = 'Tee-Robotics';
 
+// Run when client connects
+io.on('connection', socket => {
+  socket.on('joinRoom', ({ username, room }) => {
+    const user = userJoin(socket.id, username, room);
 
+    socket.join(user.room);
 
+    // Welcome current user
+    socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'));
 
-  app.get("/response/:id", function(req, res){
-    Message.findById(req.params.id).populate("messages").exec(function(err, messages){
-      res.send(messages);
-      console.log(messages)
-    })
-  })
-  
-  
+    // Broadcast when a user connects
+    socket.broadcast
+      .to(user.room)
+      .emit(
+        'message',
+        formatMessage(botName, `${user.username} has joined the chat`)
+      );
 
-  app.post("/response/:id", middleware.sanitizeChat, function(req, res){
-   response.findById(req.params.id, function(err, responses){
-     if(err){
-       console.log(err)
-     }else{
-      var User = req.user;
-      var message = {
-        message: req.body.message,
-        user:{
-          id: req.user._id, 
-          username: req.user.username, 
-          firstName: req.user.firstName
-        }
-      }
-      Message.create(message, function(err, message){
-        if(err){
-          console.log(err)
-        }else{
-          io.emit('message', req.body);
-          User.messages.push(message)
-          responses.messages.push(message)
-          responses.save()
-          User.save()
-        }
-      })
-     }
-   })
-   
-  })
   
- 
-  
-  
-  
-  io.on('connection', (socket) => {
-    socket.broadcast.emit("user connect")
-    socket.on('disconnect', () => {
-      socket.broadcast.emit("user disconnected")
+    // Send users and room info
+    io.to(user.room).emit('roomUsers', {
+      room: user.room,
+      users: getRoomUsers(user.room)
     });
   });
 
+  // Listen for chatMessage
+  socket.on('chatMessage', msg => {
+    const user = getCurrentUser(socket.id);
+
+    io.to(user.room).emit('message', formatMessage(user.username, msg));
+
+    connect.then(db => {
+      console.log("connected correctly to the server");
+      let chatMessage = new Chat({ message: msg, sender: user.username });
+      chatMessage.save();
+      response.findOne({message:user.room}, function(err, respond){
+        respond.Chat.push(chatMessage)
+        respond.save()
+        console.log(respond)
+      })
+      
+    });
+  });
+
+  // Runs when client disconnects
+  socket.on('disconnect', () => {
+    const user = userLeave(socket.id);
+
+    if (user) {
+      io.to(user.room).emit(
+        'message',
+        formatMessage(botName, `${user.username} has left the chat`)
+      );
+
+      // Send users and room info
+      io.to(user.room).emit('roomUsers', {
+        room: user.room,
+        users: getRoomUsers(user.room)
+      });
+    }
+  });
+});
+
 io.on('connection', (socket) => {
   socket.on('typing', (data)=>{
-    if(data.typing==true)
+    if(data.typing===true)
        socket.broadcast.emit('display', data)
     else
        socket.broadcast.emit('display', data)
@@ -131,8 +145,6 @@ io.on('connection', (socket)=>{
   })
 
 }) 
-
-
 
 
 
