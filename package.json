@@ -1,15 +1,24 @@
 {
-  "name": "chatcord",
+  "name": "estate-agency2",
   "version": "1.0.0",
-  "description": "Realtime chat app with rooms",
-  "main": "server.js",
+  "description": "estate agencies web application",
+  "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/certifiedTboy/estate-agency2.git"
+  },
   "author": "adebisi tosin",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/certifiedTboy/estate-agency2/issues"
+  },
+  "homepage": "https://github.com/certifiedTboy/estate-agency2#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
@@ -24,7 +33,6 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^6.1.0",
-    "save": "^2.4.0",
-    "socket.io": "^2.4.0"
+    "socket.io": "^4.1.2"
   }
 }
