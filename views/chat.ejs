@@ -79,14 +79,14 @@
   border-radius: 10px;
 }
     .search-text-input{
-          border-top:thin solid  #e5e5e5;
+          /* border-top:thin solid  #e5e5e5;
           border-right:thin solid #e5e5e5;
           border-bottom:0;
           border-left:thin solid  #e5e5e5;
-          box-shadow:0px 1px 1px 1px #e5e5e5;
+          box-shadow:0px 1px 1px 1px #e5e5e5; */
           float:left;
           /* height:17px; */
-          margin:.8em 0 0 .5em; 
+         margin-right: 5px;
           outline:0;
           /* padding:.4em 0 .4em .6em;  */
           width:80%; 
@@ -95,14 +95,17 @@
         .button-holder{
           /* background-color:#f1f1f1; */
           /* border-top:thin solid #e5e5e5; */
-          box-shadow:1px 1px 1px 1px #e5e5e5;
+          /* box-shadow:1px 1px 1px 1px #e5e5e5; */
           cursor:pointer;
           float:left;
           /* font-size: 30px; */
           /* height:27px; */
           margin:100px 0 0 0;
-          text-align:center;
-          width:50px;
+          /* text-align:center; */
+          width:70px;
+          margin-top: -2px;
+          background: none !important;
+          border: 1px solid white;
         }
        .chat-container{
          border-radius: 20px;
@@ -144,6 +147,14 @@
         .message{
           margin-right: 10px !important;
          
+        }
+        .chat-cot{
+          padding: 0;
+        }
+
+
+        .button-holder{
+          width: 50px;
         }
       
         } */
@@ -274,11 +285,9 @@
   <div class="row">
       <div class="col-12">
         <ul class="nav nav-tabs">
-         
           <li class="nav-item">
             <a class="nav-link d-none d-md-block mdnav" style="font-size: 25px; font-weight: 600; color: rgb(0, 2, 0);" aria-current="page" href="/" >Home</a>
             <a class="nav-link  d-md-none d-lg-block" style="color:  rgb(0, 2, 0);" aria-current="page" href="/home" title="Home"> <i class="fas fa-store-alt"></i></a>
-           
           </li>
           <li class="nav-item">
             <a class="nav-link d-none d-md-block mdnav" href="/about" style="font-size: 25px; font-weight: 600; color: rgb(0, 2, 0);">About</a>
@@ -286,8 +295,8 @@
           </li>
          
           <li class="nav-item">
-            <a class="nav-link d-md-none  d-lg-block active  mobactive " style="color:  rgb(0, 2, 0);" aria-current="page" href="/property" title="Property"> <i class="fas fa-laptop-house"></i></a>
-            <a class="nav-link d-none d-md-block mdnav active" href="/property" style="font-size: 25px; font-weight: 600; color: rgb(63, 199, 95);">Property</a>
+            <a class="nav-link d-md-none  d-lg-block   mobactive " style="color:  rgb(0, 2, 0);" aria-current="page" href="/property" title="Property"> <i class="fas fa-laptop-house"></i></a>
+            <a class="nav-link d-none d-md-block mdnav " href="/property" style="font-size: 25px; font-weight: 600; color: rgb(63, 199, 95);">Property</a>
           </li>
           <li class="nav-item">
             <a class="nav-link d-md-none d-lg-block " style="color:  rgb(0, 2, 0);" aria-current="page" href="/blogs" title="Blogs"> <i class="fas fa-blog"></i></a>
@@ -320,10 +329,7 @@
                     <button style="color: black; background-color: none; border: none; background: none;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal2">Login</button>
               
                   </div>
-                  
-              
-              
-               
+                                 
               </div>
               <% } %>
              
@@ -339,7 +345,7 @@
 
  <div class="container-fluid">
     <div class="row">
-        <div class="col-md-3" style="background-color: rgb(39, 39, 83); padding-bottom: 50px; padding-top: 50px;">
+        <div class="col-lg-3 d-none d-lg-block" style="background-color: rgb(39, 39, 83); padding-bottom: 50px; padding-top: 50px;">
           <div class="card list-group" style="background: none; border: none; line-height: 50px; margin-top: 100px;">
             <li class="list-group-item " style="background: none; color: rgb(213, 210, 241); border: none;"><strong><span style="margin-right: 10px; font-size: 20px;"><i class="fas fa-user-circle"></i></span><a class="" style="text-decoration: none; color: inherit;" href="/user/userprofile/<%=currentUser._id%>" title="Go back to Admin Dashboard" >User Profile</a> </strong></li>
             
@@ -352,10 +358,10 @@
       </div>
             
         </div>
-        <div class="col-md-9" style="margin-top: 100px; background-color: black;">
-          <div class="container-fluid">
+        <div class="col-md-12 col-lg-9 col-sm-12" style="margin-top: 100px; background-color: black;">
+          <div class="container-fluid pr-0 pl-3">
             <div class="row">
-                <div class="col-12 col-md-3 mt-5 user-image">
+                <div class="col-12 col-md-3 col-lg-3 mt-5 user-image" style="text-align: center;">
                   
                     <h4 style="color: white;"><%=data.user.firstName%> <%=data.user.otherName%></h4>
                     <p style="color: white;"><%=data.user.username%></p>
@@ -364,7 +370,7 @@
                         <img src="/images/admin/user1.png" style="width: 200px;" alt="" class="agent-avatar img-fluid">
                       </div>
                 </div>
-                <div class="col-md-9 mt-5 p-0 chatter" style=" background-color: black; border-right: 4px solid white; border-left: 4px solid white;">
+                <div class="col-12 col-md-9 col-lg-9 mt-5 chatter" style=" background-color: black; border-right: 4px solid white; border-left: 4px solid white;">
                         <div style="background-color: rgb(85, 83, 83); padding: 20px; border-radius: 20px; margin-bottom: 50px;">
                           <div class="">
                             
@@ -382,17 +388,19 @@
                                <% }) %>
                           </div>
                       
-                        <div class="container">
+                        <div class="container chat-cot">
                           <div class="row">
-                          <p class="typing" style="color: white; position: absolute; margin-top: -30px; font-style: italic;" id="typing"></p>
-                          <div class="">
-                              <div class="chat-form-container chat-container " style="background-color: rgb(39, 39, 83)">
+                          <p class="typing" style="color: white; position: absolute; margin-top: -20px; font-style: italic;" id="typing"></p>
+                          <div class="chat-div" style="margin-bottom: 30px;">
+                             
                                 <form id="chat-form">
                                   <input type="hidden" value="<%=currentUser.firstName%>" id="name" class="name">
-                                  <input id="msg" name="message" class="message" type="text" placeholder="Enter Message" required autocomplete="off" />
-                                  <button class="btn"><i class="fas fa-paper-plane"></i></button>
-                                </form>
-                              </div>
+                                  <div class="form-group">
+                                    <input style="background:none; color: white; height: 50px;" id="msg" name="message" class="message form-control d-inline search-text-input" type="text" placeholder="Enter Message" required autocomplete="off" />
+                                    <button style="height: 50px;" class="btn d-inline button-holder"><i class="fas fa-paper-plane"></i></button>
+                                  </div>
+                                </form> 
+                              
                           </div>
                          
                       </div>
@@ -411,7 +419,7 @@
 
 
  <!--/ footer Star /-->
- <footer style="margin-top:">
+ <footer >
   <div class="container">
     <div class="row">
       <div class="col-md-12">
