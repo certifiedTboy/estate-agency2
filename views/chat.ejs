@@ -25,19 +25,14 @@
   <link href="/stylesheets/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
   <link
   rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"/>
 <link rel="stylesheet" href="/css/style.css" />
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
   <!-- Main Stylesheet File -->
   <link href="/stylesheets/css/style.css" rel="stylesheet">
-
-    <link
-      rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"/>
-    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous"/>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
    
     <style>
@@ -112,7 +107,13 @@
         }
         } */
        
+      .typing{
       
+  width: 100px;
+  transition: width .20s ease-in-out;
+  transition-delay: 20s;
+      
+      }
      
     </style>
   </head>
@@ -331,7 +332,7 @@
                         <div style="background-color: rgb(85, 83, 83); padding: 20px; border-radius: 20px; margin-bottom: 50px;">
                           <div class="">
                             
-                            <h2 style="font-size: 20px; color: white;" id="room-name"></h2>
+                            <h2 style="font-size: 20px; color: white;" id="room-name" class="typing"></h2>
                            
                           </div>
                         </div>
@@ -347,15 +348,17 @@
                         </main>
                         <div class="container">
                           <br>
+                         
+                          <p class="typing" style="color: white; position: absolute; margin-top: -30px; font-style: italic;" id="typing"></p>
                           <div class="">
                            
-                            <p style="color: white;" class="typing" id="typing"> </p>
+                         
                              
                              
                               <div class="chat-form-container">
       
                                 <form id="chat-form">
-                                  <input type="hidden" value="<%=currentUser.firstName%>" id="name">
+                                  <input type="hidden" value="<%=currentUser.firstName%>" id="name" class="name">
                                   <input id="msg" name="message" class="message" type="text" placeholder="Enter Message" required autocomplete="off" />
                                   <button class="btn"><i class="fas fa-paper-plane"></i></button>
                                 </form>
@@ -394,27 +397,16 @@
     </div>
   </div>
 </footer>
-<!--/ Footer End /-->
 
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"
-      integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="
-      crossorigin="anonymous"
-    ></script>
-    <script src="/socket.io/socket.io.js"></script>
-    <script src="/js/main.js"></script>
   <!-- JavaScript Libraries -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="crossorigin="anonymous"
-></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="crossorigin="anonymous"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/main.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
-
-  <script src="/javascripts/lib/jquery/jquery.min.js"></script>
+<script src="/javascripts/lib/easing/easing.min.js"></script>
   <script src="/javascripts/lib/jquery/jquery-migrate.min.js"></script>
   <script src="/javascripts/lib/popper/popper.min.js"></script>
   <script src="/javascripts/lib/bootstrap/js/bootstrap.min.js"></script>
-  <script src="/javascripts/lib/easing/easing.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
   <script src="/javascripts/lib/owlcarousel/owl.carousel.min.js"></script>
   <script src="/javascripts/lib/scrollreveal/scrollreveal.min.js"></script>
   <!-- Contact Form JavaScript File -->

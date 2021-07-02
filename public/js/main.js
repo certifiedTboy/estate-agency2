@@ -85,68 +85,53 @@ function outputUsers(users) {
   });
 }
 
-//Prompt the user before leave chat room
-document.getElementById('leave-btn').addEventListener('click', () => {
-  const leaveRoom = confirm('Are you sure you want to leave the chatroom?');
-  if (leaveRoom) {
-    window.location = '../join-chat';
-  } else {
-  }
-});
-
- 
 
 
-
-// user typing 
+//user is typing 
 var typing=false;
 var timeout=undefined;
-var user;
+var user; 
 
-const messageInput = document.querySelector(".message")
-
-  $(document).ready(function(){
-    $('.message').keypress(()=>{
-        
-          typing=true
-          socket.emit('typing', {user: $("#name").val(), typing:true})
-          clearTimeout(timeout)
-          timeout=setTimeout(typingTimeout, 3000)
-     
-      })
-
-    
-      socket.on("display", function(data){
-        if(data.typing===true){
-          $('#typing').text(`${data.user} is typing ...`)
-        }else{
-          $('#typing').text("")
-        }
-      })
-})
-
- 
-
-// STOP TYPING 
 
 $(document).ready(function(){
-  $('.message').keyup(()=>{
-      
-        typing=false;
-        socket.emit('typing', {user: " ", typing:false})
-        clearTimeout(timeout)
-        timeout=setTimeout(typingTimeout, 3000)
-   
-    })
+  $('#msg').keypress((e)=>{
+    if(e.which!=13){
+      typing=true
+      socket.emit('typing', {user:$("#name").val(), typing:true})
+      clearTimeout(timeout)
+      timeout=setTimeout(typingTimeout, 1000000)
+    }else{
+      clearTimeout(timeout)
+      typingTimeout()
+            
+    }
+  })
 
   
-    socket.on("hidden", function(data){
-      if(data.typing===false){
-        $('#typing').text("")
-      }else{
-        $('#typing').text("")
-      }
-    })
+  socket.on('display', (data)=>{
+    if(data.typing===true)
+      $('#typing').text(`${data.user} is typing...`)
+    else
+      $('#typing').text("")
+  })
 })
 
 
+// stop typing
+$(document).ready(function(){
+  $('#msg').keyup(()=>{
+      typing=false
+      socket.emit('stopTyping', {user:$("#name").val(), typing:false})
+      clearTimeout(timeout)
+      typingTimeout()
+            
+  })
+
+  //code explained later
+  socket.on('hidden', (data)=>{
+    if(data.typing===false)
+      $('#typing').text(" ")
+    else
+      $('#typing').text("")
+  })
+})

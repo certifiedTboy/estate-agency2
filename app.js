@@ -17,7 +17,6 @@ var indexRoutes = require("./routes/index");
 var passwordRoutes = require("./routes/passwordReset")
 var path = require('path');  
 var response = require("./models/response")
-var mongoose = require("mongoose"); 
 const User = require('./models/user');
 const Chat = require('./models/Chat');
 const httpServer = require("http").createServer(app);
@@ -26,8 +25,8 @@ const PORT = process.env.PORT || 3000;
 
 
 
-// var dbUrl = "mongodb://127.0.0.1:27017/estate-agency"
-var dbUrl = 'mongodb://smssolution:yGHblWA4Vm4LFivj@cluster0-shard-00-00.3wo4h.mongodb.net:27017,cluster0-shard-00-01.3wo4h.mongodb.net:27017,cluster0-shard-00-02.3wo4h.mongodb.net:27017/estate-agency2?authSource=admin&replicaSet=atlas-8os7kz-shard-0&w=majority&readPreference=primary&retryWrites=true&ssl=true'
+var dbUrl = "mongodb://127.0.0.1:27017/estate-agency"
+// var dbUrl = 'mongodb://smssolution:yGHblWA4Vm4LFivj@cluster0-shard-00-00.3wo4h.mongodb.net:27017,cluster0-shard-00-01.3wo4h.mongodb.net:27017,cluster0-shard-00-02.3wo4h.mongodb.net:27017/estate-agency2?authSource=admin&replicaSet=atlas-8os7kz-shard-0&w=majority&readPreference=primary&retryWrites=true&ssl=true'
 var connect = mongoose.connect(dbUrl, {useNewUrlParser:true, useUnifiedTopology: true})
 .then(()=>console.log('connectd to db'))
 .catch((err)=>console.log('error ',err));
@@ -69,17 +68,16 @@ io.on('connection', socket => {
     socket.join(user.room);
 
     // Welcome current user
-    socket.emit('message', formatMessage(botName, 'Welcome to ChatCord!'));
+    socket.emit('message', formatMessage(botName, 'Welcome to Estate Agency Chat!'));
 
     // Broadcast when a user connects
     socket.broadcast
       .to(user.room)
       .emit(
         'message',
-        formatMessage(botName, `${user.username} has joined the chat`)
+        formatMessage(" ", `${user.username} has joined the chat`)
       );
 
-  
     // Send users and room info
     io.to(user.room).emit('roomUsers', {
       room: user.room,
@@ -94,13 +92,12 @@ io.on('connection', socket => {
     io.to(user.room).emit('message', formatMessage(user.username, msg));
 
     connect.then(db => {
-      console.log("connected correctly to the server");
       let chatMessage = new Chat({ message: msg, sender: user.username });
       chatMessage.save();
       response.findOne({message:user.room}, function(err, respond){
         respond.Chat.push(chatMessage)
         respond.save()
-        console.log(respond)
+        
       })
       
     });
@@ -113,7 +110,7 @@ io.on('connection', socket => {
     if (user) {
       io.to(user.room).emit(
         'message',
-        formatMessage(botName, `${user.username} has left the chat`)
+        formatMessage("", `${user.username} has left the chat`)
       );
 
       // Send users and room info
@@ -125,6 +122,8 @@ io.on('connection', socket => {
   });
 });
 
+
+//show user typing
 io.on('connection', (socket) => {
   socket.on('typing', (data)=>{
     if(data.typing===true)
@@ -145,6 +144,7 @@ io.on('connection', (socket)=>{
   })
 
 }) 
+
 
 
 

@@ -139,7 +139,7 @@ router.use(require("express-session")({
         if(err){
           console.log(err)
         }else{
-          console.log(data)
+        
           res.render("chat", {data:data})
         }
       })
