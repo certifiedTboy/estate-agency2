@@ -347,14 +347,21 @@
     <div class="row">
         <div class="col-lg-3 d-none d-lg-block" style="background-color: rgb(39, 39, 83); padding-bottom: 50px; padding-top: 50px;">
           <div class="card list-group" style="background: none; border: none; line-height: 50px; margin-top: 100px;">
-            <li class="list-group-item " style="background: none; color: rgb(213, 210, 241); border: none;"><strong><span style="margin-right: 10px; font-size: 20px;"><i class="fas fa-user-circle"></i></span><a class="" style="text-decoration: none; color: inherit;" href="/user/userprofile/<%=currentUser._id%>" title="Go back to Admin Dashboard" >User Profile</a> </strong></li>
-            
-           
-              <div class="">
-               
-                <h3 style="font-size: 18px; color: rgb(213, 210, 241); border: none; margin-left: 15px;"><i class="fas fa-users"></i> Active User</h3>
-                <ul style=" color: white; font-weight: 600;" id="users"></ul>
-              </div>
+           <% if(currentUser.isAdmin === false){ %>
+              <li class="list-group-item " style="background: none; color: rgb(213, 210, 241); border: none;"><strong><span style="margin-right: 10px; font-size: 20px;"><i class="fas fa-user-circle"></i></span><a class="" style="text-decoration: none; color: inherit;" href="/user/userprofile/<%=currentUser._id%>" title="Go back to Admin Dashboard" >User Profile</a> </strong></li>
+            <% }else{ %>
+              <h3 style="font-size: 18px; color: rgb(213, 210, 241); border: none; margin-left: 15px;"><i class="fas fa-users"></i> Active User</h3>
+              <ul style=" color: white; font-weight: 600;" id="users"></ul>
+              <li class="list-group-item " style="background: none; color: rgb(213, 210, 241); border: none;"><strong><span style="margin-right: 10px; font-size: 20px;"><i class="fas fa-user-circle"></i></span><a class="" style="text-decoration: none; color: inherit;" href="/user/userprofile/<%=currentUser._id%>" title="Go back to Admin Dashboard" >View User Details</a> </strong></li>
+              <li class="list-group-item " style="background: none; color: rgb(213, 210, 241); border: none;"><strong><span style="margin-right: 10px; font-size: 20px;"><i class="fas fa-chart-line"></i></span><a  style="text-decoration: none; color: inherit;" href="/admin/dashboard" title="Go back to Admin Dashboard" >Dashboard</a> </strong></li>
+              <li class="list-group-item  " style="background: none; color: rgb(213, 210, 241); border: none;"><strong> <span style="margin-right: 5px; font-size: 20px;"><i class="fas fa-users"></i></span> <a style="text-decoration: none; color: inherit;" href="/admin/users" title="View All Registered users" >Registered Users</a>  </strong></li>
+              <li class="list-group-item  active" style="background: none; color: rgb(213, 210, 241); border: none;"><strong> <span style="margin-right: 5px; font-size: 20px;"><i class="fas fa-mail-bulk"></i></span> <a style="text-decoration: none; color: inherit;" href="/admin/messages" title="View All Messages" >All Messages</a> </strong></li>
+              <li class="list-group-item" style="background: none; color: rgb(213, 210, 241); border: none;"><strong> <span style="margin-right: 5px; font-size: 20px;"><i class="fas fa-city"></i></span><a style="text-decoration: none; color: inherit;" href="/admin/properties" title="View All Properties" >All Properties</a> </strong></li>
+              <li class="list-group-item " style="background: none; color: rgb(213, 210, 241); border: none;"><strong> <span style="margin-right: 5px; font-size: 20px;"><i class="fas fa-user-circle"></i></span> <a style="text-decoration: none; color: inherit;" href="/admin/agents" title="View All Registered Agents" >Registered Agents</strong></a></li>
+              <li  class="list-group-item" style="background: none; color: rgb(213, 210, 241); border: none;"><strong> <span style="margin-right: 5px; font-size: 20px;"><i class="fas fa-store-alt"></i></span><a style="text-decoration: none; color: inherit;" href="/admin/rentproperties" title="View Rent Properties" >Rent Properties</a></strong></li>
+              <li  class="list-group-item " style="background: none; color: rgb(213, 210, 241); border: none;"><strong> <span style="margin-right: 5px; font-size: 20px;"><i class="fas fa-house-damage"></i></span><a style="text-decoration: none; color: inherit;" href="/admin/saleproperties" title="View Sale Properties" >Sale Properties </a></strong></li> 
+              <li  class="list-group-item " style="background: none; color: rgb(213, 210, 241); border: none;"><strong> <span style="margin-right: 5px; font-size: 20px;"><i class="fas fa-hotel"></i></span><a style="text-decoration: none; color: inherit;" href="/admin/mortgageproperties" title="View Sale Properties" >Mortgage Properties </a></strong></li> 
+              <% } %>
       </div>
             
         </div>
@@ -371,12 +378,8 @@
                       </div>
                 </div>
                 <div class="col-12 col-md-9 col-lg-9 mt-5 chatter" style=" background-color: black; border-right: 4px solid white; border-left: 4px solid white;">
-                        <div style="background-color: rgb(85, 83, 83); padding: 20px; border-radius: 20px; margin-bottom: 50px;">
-                          <div class="">
-                            
+                        <div style="background-color: rgb(85, 83, 83); padding: 20px; border-radius: 10px; margin-bottom: 50px; width: 100%;">
                             <h2 style="font-size: 20px; color: white;" id="room-name" ></h2>
-                           
-                          </div>
                         </div>
                         
                           <div class="chat-messages">

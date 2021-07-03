@@ -39,7 +39,10 @@
     .fas{
       font-size: 27px;
      
-      margin-right: 13px;
+      
+    }
+    .md-icon{
+      margin-right: 40px;
     }
     .mobactive{
       color:rgb(63, 199, 95) !important;
@@ -51,8 +54,12 @@
       margin-top: 50px;
     }
 
-    .nav-item{
+    /* .nav-item{
         float: left;
+    } */
+
+    .md-icon{
+      margin-right: 13px !important;
     }
 		} */
    
@@ -60,6 +67,33 @@
 </head>
 
 <body>
+  <div class="click-closed"></div>
+  <!--/ Form Search Star /-->
+  <div class="box-collapse">
+    <div class="title-box-d">
+      <h3 class="title-d">Search Property</h3>
+    </div>
+    <span class="close-box-collapse right-boxed ion-ios-close"></span>
+    <div class="box-collapse-wrap form">
+      <form action="/search" class="form-a" method="GET">
+        <div class="row">
+          <div class="col-md-12 mb-2">
+            <div class="form-group">
+              <label for="Type">Keyword</label>
+              <input type="text" class="form-control form-control-lg form-control-a" placeholder="Keyword" name="dsearch">
+            </div>
+          </div>
+         
+          
+          <div class="col-md-12">
+            <button type="submit" class="btn btn-b">Search Property</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <!--/ Form Search End /-->
+ 
 <!--/ MODAL /-->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -377,24 +411,24 @@
          
           <li class="nav-item">
             <a class="nav-link active d-none d-md-block mdnav" style="font-size: 25px; font-weight: 600; color: rgb(63, 199, 95);" aria-current="page" href="/" >Home</a>
-            <a  class="nav-link active d-md-none d-lg-block mobactive" aria-current="page" href="/home" title="Home"> <i class="fas fa-store-alt"></i></a>
+            <a  class="md-icon nav-link active d-md-none d-lg-block mobactive" aria-current="page" href="/home" title="Home"> <i class="fas fa-store-alt"></i></a>
            
           </li>
           <li class="nav-item">
             <a class="nav-link d-none d-md-block mdnav" href="/about" style="font-size: 25px; font-weight: 600; color: rgb(0, 2, 0);">About</a>
-            <a class="nav-link d-md-none d-lg-block " style="color:rgb(0, 2, 0);" aria-current="page" href="/about" title="About"> <i class="fas fa-question-circle"></i></a>
+            <a class="md-icon nav-link d-md-none d-lg-block " style="color:rgb(0, 2, 0);" aria-current="page" href="/about" title="About"> <i class="fas fa-question-circle"></i></a>
           </li>
          
           <li class="nav-item">
-            <a class="nav-link d-md-none d-lg-block " aria-current="page" style="color:rgb(0, 2, 0);" href="/property" title="Property"> <i class="fas fa-laptop-house"></i></a>
+            <a class="md-icon nav-link d-md-none d-lg-block " aria-current="page" style="color:rgb(0, 2, 0);" href="/property" title="Property"> <i class="fas fa-laptop-house"></i></a>
             <a class="nav-link d-none d-md-block mdnav" href="/property" style="font-size: 25px; font-weight: 600;color: rgb(0, 2, 0);">Property</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link d-md-none d-lg-block " aria-current="page" href="/blogs" style="color:rgb(0, 2, 0);" title="Blogs"> <i class="fas fa-blog"></i></a>
+            <a class="md-icon nav-link d-md-none d-lg-block " aria-current="page" href="/blogs" style="color:rgb(0, 2, 0);" title="Blogs"> <i class="fas fa-blog"></i></a>
             <a class="nav-link d-none d-md-block mdnav" href="/blogs" style="font-size: 25px; font-weight: 600; color: rgb(0, 2, 0);">Blog</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link d-md-none d-lg-block" aria-current="page" href="/contact" style="color:rgb(0, 2, 0);" title="Contact"> <i class="fas fa-file-signature"></i></a>
+            <a class="md-icon nav-link d-md-none d-lg-block" aria-current="page" href="/contact" style="color:rgb(0, 2, 0);" title="Contact"> <i class="fas fa-file-signature"></i></a>
             <a class="nav-link d-none d-md-block mdnav" href="/contact" style="font-size: 25px; font-weight: 600; color: rgb(0, 2, 0);">Contact</a>
           </li>
           
