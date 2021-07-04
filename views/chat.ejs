@@ -7,7 +7,6 @@
   <meta content="" name="keywords">
   <meta content="" name="description">
 
-  <!-- Favicons -->
   <link href="/images/img/favicon.png" rel="icon">
   <link href="/images/img/apple-touch-icon.png" rel="apple-touch-icon">
 
@@ -39,6 +38,10 @@
       .active{
         color: white !important;
       }
+
+      .md-icon{
+      margin-right: 40px;
+    }
     
       /* div p {
         color: white;
@@ -112,8 +115,7 @@
        }
         .fas{
           font-size: 27px;
-          
-          margin-right: 13px;
+        
         }
         .mobactive{
           color:rgb(63, 199, 95) !important;
@@ -156,10 +158,15 @@
         .button-holder{
           width: 50px;
         }
-      
+        .md-icon{
+      margin-right: 13px !important;
+    }
+    .nav-link{
+      padding: 13px;
+    }
         } */
        
-      
+     
 
     </style>
   </head>
@@ -287,23 +294,23 @@
         <ul class="nav nav-tabs">
           <li class="nav-item">
             <a class="nav-link d-none d-md-block mdnav" style="font-size: 25px; font-weight: 600; color: rgb(0, 2, 0);" aria-current="page" href="/" >Home</a>
-            <a class="nav-link  d-md-none d-lg-block" style="color:  rgb(0, 2, 0);" aria-current="page" href="/home" title="Home"> <i class="fas fa-store-alt"></i></a>
+            <a class="md-icon nav-link  d-md-none d-lg-block" style="color:  rgb(0, 2, 0);" aria-current="page" href="/home" title="Home"> <i class="fas fa-store-alt"></i></a>
           </li>
           <li class="nav-item">
             <a class="nav-link d-none d-md-block mdnav" href="/about" style="font-size: 25px; font-weight: 600; color: rgb(0, 2, 0);">About</a>
-            <a class="nav-link d-md-none d-lg-block  " style="color:  rgb(0, 2, 0);" aria-current="page" href="/about" title="About"> <i class="fas fa-question-circle"></i></a>
+            <a class="md-icon nav-link d-md-none d-lg-block  " style="color:  rgb(0, 2, 0);" aria-current="page" href="/about" title="About"> <i class="fas fa-question-circle"></i></a>
           </li>
          
           <li class="nav-item">
-            <a class="nav-link d-md-none  d-lg-block   mobactive " style="color:  rgb(0, 2, 0);" aria-current="page" href="/property" title="Property"> <i class="fas fa-laptop-house"></i></a>
+            <a class=" md-icon nav-link d-md-none  d-lg-block   mobactive " style="color:  rgb(0, 2, 0);" aria-current="page" href="/property" title="Property"> <i class="fas fa-laptop-house"></i></a>
             <a class="nav-link d-none d-md-block mdnav " href="/property" style="font-size: 25px; font-weight: 600; color: rgb(63, 199, 95);">Property</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link d-md-none d-lg-block " style="color:  rgb(0, 2, 0);" aria-current="page" href="/blogs" title="Blogs"> <i class="fas fa-blog"></i></a>
+            <a class="md-icon nav-link d-md-none d-lg-block " style="color:  rgb(0, 2, 0);" aria-current="page" href="/blogs" title="Blogs"> <i class="fas fa-blog"></i></a>
             <a class="nav-link d-none d-md-block mdnav" href="/blogs" style="font-size: 25px; font-weight: 600; color: rgb(0, 2, 0);">Blog</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link d-md-none d-lg-block" style="color:  rgb(0, 2, 0);" aria-current="page" href="/contact" title="Contact"> <i class="fas fa-file-signature"></i></a>
+            <a class="md-icon nav-link d-md-none d-lg-block" style="color:  rgb(0, 2, 0);" aria-current="page" href="/contact" title="Contact"> <i class="fas fa-file-signature"></i></a>
             <a class="nav-link d-none d-md-block mdnav" href="/contact" style="font-size: 25px; font-weight: 600; color: rgb(0, 2, 0);">Contact</a>
           </li>
        
@@ -350,8 +357,7 @@
            <% if(currentUser.isAdmin === false){ %>
               <li class="list-group-item " style="background: none; color: rgb(213, 210, 241); border: none;"><strong><span style="margin-right: 10px; font-size: 20px;"><i class="fas fa-user-circle"></i></span><a class="" style="text-decoration: none; color: inherit;" href="/user/userprofile/<%=currentUser._id%>" title="Go back to Admin Dashboard" >User Profile</a> </strong></li>
             <% }else{ %>
-              <h3 style="font-size: 18px; color: rgb(213, 210, 241); border: none; margin-left: 15px;"><i class="fas fa-users"></i> Active User</h3>
-              <ul style=" color: white; font-weight: 600;" id="users"></ul>
+              
               <li class="list-group-item " style="background: none; color: rgb(213, 210, 241); border: none;"><strong><span style="margin-right: 10px; font-size: 20px;"><i class="fas fa-user-circle"></i></span><a class="" style="text-decoration: none; color: inherit;" href="/user/userprofile/<%=currentUser._id%>" title="Go back to Admin Dashboard" >View User Details</a> </strong></li>
               <li class="list-group-item " style="background: none; color: rgb(213, 210, 241); border: none;"><strong><span style="margin-right: 10px; font-size: 20px;"><i class="fas fa-chart-line"></i></span><a  style="text-decoration: none; color: inherit;" href="/admin/dashboard" title="Go back to Admin Dashboard" >Dashboard</a> </strong></li>
               <li class="list-group-item  " style="background: none; color: rgb(213, 210, 241); border: none;"><strong> <span style="margin-right: 5px; font-size: 20px;"><i class="fas fa-users"></i></span> <a style="text-decoration: none; color: inherit;" href="/admin/users" title="View All Registered users" >Registered Users</a>  </strong></li>
@@ -362,6 +368,8 @@
               <li  class="list-group-item " style="background: none; color: rgb(213, 210, 241); border: none;"><strong> <span style="margin-right: 5px; font-size: 20px;"><i class="fas fa-house-damage"></i></span><a style="text-decoration: none; color: inherit;" href="/admin/saleproperties" title="View Sale Properties" >Sale Properties </a></strong></li> 
               <li  class="list-group-item " style="background: none; color: rgb(213, 210, 241); border: none;"><strong> <span style="margin-right: 5px; font-size: 20px;"><i class="fas fa-hotel"></i></span><a style="text-decoration: none; color: inherit;" href="/admin/mortgageproperties" title="View Sale Properties" >Mortgage Properties </a></strong></li> 
               <% } %>
+              <h3 style="font-size: 18px; color: rgb(213, 210, 241); border: none; margin-left: 15px;"><i class="fas fa-users"></i> Active User</h3>
+              <ul style=" color: white; font-weight: 600;" id="users"></ul>
       </div>
             
         </div>
@@ -393,7 +401,10 @@
                       
                         <div class="container chat-cot">
                           <div class="row">
-                          <p class="typing" style="color: white; position: absolute; margin-top: -20px; font-style: italic;" id="typing"></p>
+                            <div >
+                              <p class="typing" style="color: white; position: absolute; margin-top: -20px; font-style: italic;"></p>
+                            </div>
+                        
                           <div class="chat-div" style="margin-bottom: 30px;">
                              
                                 <form id="chat-form">
@@ -439,8 +450,8 @@
   </div>
 </footer>
 
-  <!-- JavaScript Libraries -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="crossorigin="anonymous"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.9.2/qs.min.js"integrity="sha256-TDxXjkAUay70ae/QJBEpGKkpVslXaHHayklIVglFRT4="crossorigin="anonymous"></script>
 <script src="/socket.io/socket.io.js"></script>
 <script src="/js/main.js"></script>
 <script src="/javascripts/lib/easing/easing.min.js"></script>
