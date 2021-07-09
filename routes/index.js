@@ -1,25 +1,26 @@
-var express = require('express');  
-var bodyParser = require('body-parser');  
-var multer = require('multer');  
-var mongoose = require('mongoose');  
-var path = require('path'); 
-var methodOverride = require("method-override");
-var flash = require("connect-flash");
-var LocalStrategy = require("passport-local");
-var ObjectId = require('mongodb').ObjectId; 
-var passport = require("passport");
+const express = require('express');  
+const bodyParser = require('body-parser');  
+const multer = require('multer');  
+const mongoose = require('mongoose');  
+const path = require('path'); 
+const methodOverride = require("method-override");
+const flash = require("connect-flash");
+const LocalStrategy = require("passport-local");
+const ObjectId = require('mongodb').ObjectId; 
+const passport = require("passport");
 const expressSanitizer = require('express-sanitizer');
-var middleware = require("../middleware/index");
-var User = require("../models/user");
+const middleware = require("../middleware/index");
+const asyncMiddleware = require("../utils/asyncMiddleware")
+const User = require("../models/user");
 const Property = require("../models/property")
 const response = require("../models/response")
 const Message = require("../models/message");
 const Chat = require('../models/Chat');
 
 
-var router = express.Router();
+const router = express.Router();
 
-var storage = multer.diskStorage({  
+const storage = multer.diskStorage({  
     destination:function(req,file,cb){  
          cb(null,'./public/uploads')  
     },  
@@ -28,9 +29,9 @@ var storage = multer.diskStorage({
     }  
 })  
   
-var upload = multer({storage:storage}); 
+const upload = multer({storage:storage}); 
 router.use(methodOverride("_method"))
-var picPath = path.resolve(__dirname,'public');  
+const picPath = path.resolve(__dirname,'public');  
 router.use(express.static(picPath));  
 router.use(bodyParser.urlencoded({extended:false}))  
 router.use(expressSanitizer());
@@ -58,7 +59,6 @@ router.use(require("express-session")({
     });
 
 
-
 // //REGISTERATION ROUTE
     router.post("/register", middleware.sanitizeRegister, (req,res)=>{
       if(req.body.password !== req.body.confirmPassword || req.body.password.length < 8){
@@ -81,14 +81,11 @@ router.use(require("express-session")({
 
 
     // //LOGIN ROUTE
-
-   
-   
     router.post("/login", middleware.sanitizelogin, passport.authenticate("local", 
     
     {
         successRedirect:"/admin/dashboard", 
-        failureRedirect: "back",
+        failureRedirect: "/home",
         failureFlash:true
     
     }), function(req, res){
@@ -98,267 +95,154 @@ router.use(require("express-session")({
  // // LOGOUT ROUTE
  router.get("/logout",(req,res)=>{
   req.logout();
-  res.redirect("/property");
+  res.redirect("/home");
 });
 
 
     // CLIENT SIDE ROUTES
-   router.get("/", function(req, res){
-     res.redirect("/home")
-   })
+   router.get("/", (req, res)=>res.redirect("/home"))
 
-   router.get("/home", function(req, res){
-     Property.find({}, function(err, data){
-       if(err){
-         console.log(err)
-       }else{
-        res.render("index", {data: data})
-       }
+   // HOME PAGE ROUTE
+   router.get("/home", asyncMiddleware(async(req, res) =>{
+       const property = await Property.find();
+       res.render("index", {data:property})
+   }))
+
+   // ABOUT PAGE ROUTE
+   router.get("/about", (req, res)=>res.render("about"))
+
+   // USERPROFILE ROUTE
+   router.get("/user/userprofile/:id", middleware.isLoggedIn, asyncMiddleware(async(req, res)=>{
+     User.findById(req.params.id).populate("response").populate("Chat").exec((err, data)=>{
+     res.render("rooms", {data:data})
      })
-    
-   })
+   }))
 
-   router.get("/about", function(req, res){
-     res.render("about")
-   })
-
-   router.get("/user/userprofile/:id", middleware.isLoggedIn, function(req, res){
-     User.findById(req.params.id).populate("response").exec(function(err, data){
-       if(err){
-         console.log(err)
-       }else{
-        res.render("rooms", {data:data})
-       }
-     })
-    
-   })
-
-
-    router.get("/response/:message", middleware.isLoggedIn, function(req, res){
+// USER CHAT-PAGE ROUTE 
+    router.get("/response/:message", middleware.isLoggedIn, asyncMiddleware(async(req, res) => {
       response.findOne({"message":req.params.message}).populate("Chat").exec(function(err, data){
-        if(err){
-          console.log(err)
-        }else{
-        
-          res.render("chat", {data:data})
-        }
+       res.render("chat", {data:data})
       })
-    })
+    }))
 
-    
-  
-
-   router.delete("/response/:id", function(req, res){
-     response.findByIdAndDelete(req.params.id, function(err, data){
-       if(err){
-         console.log(err)
-       }else{
-         res.redirect("back")
-       }
-     })
-   })
-
-   router.get("/property", function(req, res){
-     Property.find({}, function(err, data){
-       if(err){
-         console.log(err)
-       }else{
+    // USER RESPONSE DELETE ROUTE
+  router.delete('/response/:id', asyncMiddleware (async(req, res) => {
+        const respond = await response.findByIdAndDelete(req.params.id);
+        res.redirect("back")
         
-        
-        res.render("property-grid", {data:data})
-       }
-     })
-    
-   })
+}))
 
+   // PROPERTY PAGE ROUTE
+   router.get("/property", asyncMiddleware(async(req, res)=>{
+       const property = await Property.find()
+       res.render("property-grid", {data:property})
+   }))
 
-   router.get("/property/:id", function(req, res){
-     Property.findById(req.params.id).populate("response").exec(function(err, data){
-       if(err){
-         console.log(err)
-       }else{
-        
+// PROPERTY DETAILS PAGE ROUTE
+  router.get("/property/:id", asyncMiddleware(async(req, res)=>{
+      const id = req.params.id;
+      const data = await Property.findById(id);
         res.render("property-single", {data:data})
-       }
-     })
-  })
+  }))
+
+// AGENTS PAGE ROUTES
+   router.get("/agent", (req, res)=>res.render("agend-grid"))
+
+   // BLOG ROUTES
+   router.get("/blogs", (req, res)=>res.render("blog-grid"))
+
+   // CONTACT ROUTE
+    router.get("/contact", (req, res)=>res.render("contact"))
+
+  //CLIENT SIDE MESSAGE / RESPONSE POST ROUTES
 
 
-   router.get("/agent", function(req, res){
-     res.render("agent-grid")
-   })
+  router.post('/property/:id/response', asyncMiddleware(async(req, res, next) => {
+      const User = req.user;
+      const property = await Property.findById(req.params.id)
+      if(property){
+        const respond = await response (req.body)
+        respond.save()
+        property.response.push(respond)
+        property.save()
+        User.response.push(respond)
+        User.save()
+        res.redirect("back")
+    }
+  }))
+ 
 
-   router.get("/blogs", function(req, res){
-     res.render("blog-grid")
-   })
-
-    router.get("/contact", function(req, res){
-      res.render("contact")
-    })
-
-  //CLIENT SIDE MESSAGE / RESPONSE ROUTES
-  router.post("/property/:id/response", middleware.isLoggedIn, middleware.sanitizeResponse, function(req, res){
-    Property.findById(req.params.id, function(err, property){
-      if(err){
-        console.log(err)
-      }else{
-        var User = req.user;
-        var newResponse = {
-          title: req.body.title, 
-          message: req.body.message, 
-          user: {
-            id: req.user._id, 
-            username: req.user.username,
-            firstName: req.user.firstName, 
-            otherName: req.user.otherName
-          }
-        }
-        response.create(newResponse, function(err, data){
-          if(err){
-            console.log(err)
-          }else{
-            property.response.push(data)
-            User.response.push(data)
-            property.save()
-            User.save()
-            res.redirect("back")
-          }
-        })
-      }
-    })
-  })
-
-  
 //ADMIN DASHBOARD ROUTES
-router.get("/admin/dashboard", middleware.isLoggedIn, middleware.checkAdmin,  function(req, res){
-  res.render("admin/dashboard")
-})
+router.get("/admin/dashboard", middleware.isLoggedIn, middleware.checkAdmin, (req, res)=>res.render("admin/dashboard"))
 
-router.get("/admin/users", middleware.isLoggedIn, middleware.checkAdmin, function(req, res){
-  User.find({}, function(err, data){
-    if(err){
-      console.log(err)
-    }else{
-      res.render("admin/user", {data:data})
-    }
-  })
-  
-})
+// ADMIN REGISTERED USERS ROUTES
+router.get("/admin/users", middleware.isLoggedIn, middleware.checkAdmin, asyncMiddleware(async(req, res)=>{
+    const user = await User.find({})
+    res.render("admin/user", {data:user})
+}))
 
-router.get("/admin/users/:id", middleware.isLoggedIn, middleware.isLoggedIn, function(req, res){
-  User.findById(req.params.id).populate("response").exec(function(err, data){
-    if(err){
-      console.log(err)
-    }else{
-     res.render("admin/userinfo", {data:data})
-    }
-  })
- 
-})
+// ADMIN USERPROFILE DETAILS ROUTE
+router.get("/admin/users/:id", middleware.isLoggedIn, middleware.isLoggedIn, asyncMiddleware(async(req, res) => {
+    User.findById(req.params.id).populate("response").exec((err, data)=>{
+        res.render("admin/userinfo", {data:data})
+    })
+}))
 
-router.delete("/admin/users/:id", middleware.isLoggedIn, middleware.checkAdmin, function(req, res){
-  User.findByIdAndDelete(req.params.id, function(err){
-    if(err){
-      res.redirect("back")
-    }else{
-      
-      res.redirect("back")
-    }
-  })
-})
+// ADMIN USER DELETE ROUTE
+router.delete("/admin/users/:id", middleware.isLoggedIn, middleware.checkAdmin, asyncMiddleware(async(req, res)=>{
+    const user = await User.findByIdAndDelete(req.params.id)
+    res.redirect("back")
+}))
 
-router.get("/admin/messages", middleware.isLoggedIn, middleware.checkAdmin, function(req, res){
-  response.find({}, function(err, data){
-    if(err){
-      console.log(err)
-    }else{
-      res.render("admin/messages", {data:data})
-    }
-  })
-})
+// ADMIN VIEW ALL MESSAGES / RESPONSES ROUTE
+router.get("/admin/messages", middleware.isLoggedIn, middleware.checkAdmin, asyncMiddleware(async(req, res)=>{
+    const respond = await response.find({})
+    res.render("admin/messages", {data:respond}) 
+}))
+// ADMIN PROPERTY VIEWS ROUTE
+router.get("/admin/properties",  middleware.isLoggedIn, middleware.checkAdmin, asyncMiddleware(async(req, res) => {
+    const property = await Property.find({})
+    res.render("admin/properties", {data:property})
+}))
 
-router.get("/admin/messages/:id", middleware.isLoggedIn, middleware.checkAdmin, function(req, res){
-  response.findById(req.params.id, function(err, data){
-    if(err){
-      console.log(err)
-    }else{
-      res.render("admin/adminMessageDetails", {data:data})
-    }
-  })
-    
-})
-
-router.get("/admin/properties",  middleware.isLoggedIn, middleware.checkAdmin, function(req, res){
-  Property.find({}, function(err, data){
-    if(err){
-      console.log(err)
-    }else{
-      res.render("admin/properties", {data:data})
-    }
-  })
- 
-})
-
-router.get("/admin/properties/:id",  middleware.isLoggedIn, middleware.checkAdmin, function(req, res){
-  Property.findById(req.params.id).populate("response").exec(function(err, data){
-    if(err){
-      console.log(err)
-    }else{
-     
+// ADMIN PROEPRY DETAILS VIEW ROUTE
+router.get("/admin/properties/:id",  middleware.isLoggedIn, middleware.checkAdmin, asyncMiddleware(async(req, res)=>{
+    const property = await Property.findById(req.params.id).populate("response").exec((err, data) => {
       res.render("admin/propertyDetails", {data:data})
-    }
   })
-})
+}))
 
-router.get("/admin/response/:id",  middleware.isLoggedIn, middleware.checkAdmin, function(req, res){
-  response.findById(req.params.id).populate("messages").exec(function(err, data){
-    if(err){
-      console.log(err)
-    }else{
-     
-      res.render("admin/adminMessageDetails", {data:data})
-    }
-  })
-})
+// ADMIN RENT PROPERTIES VIEW ROUTE
+router.get("/admin/rentproperties",  middleware.isLoggedIn, middleware.checkAdmin, asyncMiddleware(async(req, res) => {
+    const property = await Property.find({})
+    res.render("admin/propertyRent", {data:property})
+}))
 
-router.get("/admin/rentproperties",  middleware.isLoggedIn, middleware.checkAdmin, function(req, res){
-  Property.find({}, function(err, data){
-    if(err){
-      console.log(err)
-    }else{
-      res.render("admin/propertyRent", {data:data})
-    }
-  })
-  
-})
+// ADMIN SALE PROPERTY VIEWS ROUTE
+router.get("/admin/saleproperties",  middleware.isLoggedIn, middleware.checkAdmin, asyncMiddleware(async(req, res) => {
+    const property = await Property.find({})
+    res.render("admin/propertySale", {data:property})
+}))
 
-router.get("/admin/saleproperties",  middleware.isLoggedIn, middleware.checkAdmin, function(req, res){
-  Property.find({}, function(err, data){
-    if(err){
-      console.log(err)
-    }else{
-    
-      res.render("admin/propertySale", {data:data})
-    }
-  })
+// ADMIN MORTGAGE PROPERTY VIEW ROUTE
+router.get("/admin/mortgageproperties",  middleware.isLoggedIn, middleware.checkAdmin, asyncMiddleware(async(req, res) => {
+    const property = await Property.find({})
+    res.render("admin/propertyMortage", {data:property})
+}))
 
-})
+//ADMIN REGISTERED AGENTS VIEWS ROUTE
+router.get("/admin/agents",  middleware.isLoggedIn, middleware.checkAdmin, (req, res) =>res.render("admin/agent"))
 
-router.get("/admin/mortgageproperties",  middleware.isLoggedIn, middleware.checkAdmin, function(req, res){
-  Property.find({}, function(err, data){
-    if(err){
-      console.log(err)
-    }else{
-      res.render("admin/propertyMortage", {data:data})
-    }
-  })
-
-})
-
-router.get("/admin/agents",  middleware.isLoggedIn, middleware.checkAdmin, function(req, res){
-  res.render("admin/agent")
-})
-
+// ADMIN PROPERTY POST ROUTE
+// router.post("/property", upload.array("pic", 30),  middleware.isLoggedIn, middleware.checkAdmin, middleware.sanitizeProperty, asyncMiddleware(async(req, res) => {
+//   const User = req.user;
+//   const x = req.files.map(file =>  "uploads/" + file.originalname)
+//   const picss = await Property ({property:req.body.property, picspath:x})
+//   picss.save()
+//   User.property.push(picss)
+//   User.save()
+//   res.redirect("back")
+// }))
 router.post("/property", upload.array("pic", 30),  middleware.isLoggedIn, middleware.checkAdmin, middleware.sanitizeProperty, function(req, res){
   var User = req.user;
   var x = req.files.map(file =>  "uploads/" + file.originalname)
@@ -398,17 +282,13 @@ router.post("/property", upload.array("pic", 30),  middleware.isLoggedIn, middle
   })
 })
 
-router.delete("/property/:id",  middleware.isLoggedIn, middleware.checkAdmin, function(req, res){
-  Property.findByIdAndDelete(req.params.id, function(err){
-    if(err){
-      res.redirect("back")
-    }else{
-      
-      res.redirect("back")
-    }
-  })
-})
+// ADMIN PROPERTY DELETE ROUTE
+router.delete("/property/:id",  middleware.isLoggedIn, middleware.checkAdmin, asyncMiddleware(async(req, res) => {
+    const property = await Property.findByIdAndDelete(req.params.id)
+    res.redirect("back")
+}))
 
+// ADMIN PROPERTY EDIT ROUTE
 router.put("/property/:id", upload.array("pic", 30),  middleware.isLoggedIn,  middleware.checkAdmin, middleware.sanitizeProperty, function(req, res){
   var User = req.user;
   var x = req.files.map(file =>  "uploads/" + file.originalname)
@@ -446,8 +326,6 @@ router.put("/property/:id", upload.array("pic", 30),  middleware.isLoggedIn,  mi
   })
 })
 
-
-    
 // SEARCH ROUTE
 router.get('/search',(req,res)=>{
   try {
@@ -464,7 +342,5 @@ router.get('/search',(req,res)=>{
       console.log(error);
   }
 });
-
-
 
 module.exports = router; 

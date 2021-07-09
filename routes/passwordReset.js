@@ -1,28 +1,23 @@
-var express = require("express")
-var bodyParser = require('body-parser');  
-var path = require('path'); 
+const express = require("express")
+const bodyParser = require('body-parser');  
+const path = require('path'); 
 const { google } = require("googleapis");
 const OAuth2 = google.auth.OAuth2;
 const nodemailer = require('nodemailer');
-var flash = require("connect-flash");
-var middleware = require("../middleware/index");
-var LocalStrategy = require("passport-local");
-var passport = require("passport");
+const flash = require("connect-flash");
+const LocalStrategy = require("passport-local");
+const passport = require("passport");
 const expressSanitizer = require('express-sanitizer');
-var middleware = require("../middleware/index");
-var async = require("async");
-var crypto = require("crypto");
-var User = require("../models/user");
+const middleware = require("../middleware/index");
+const async = require("async");
+const crypto = require("crypto");
+const User = require("../models/user");
 
 
-var router = express.Router();
-
-
+const router = express.Router();
 
 router.use(bodyParser.urlencoded({extended:false}))  
 router.use(expressSanitizer());
-
-
    
     passport.use(new LocalStrategy(User.authenticate()));
     passport.serializeUser(User.serializeUser());     
@@ -62,11 +57,9 @@ const transport = nodemailer.createTransport({
  }});
 
 
-router.get("/resetpassword", function(req,res){
-  res.render("user/forgot")
-})
+router.get("/resetpassword", (req,res)=>res.render("user/forgot"))
 
-router.post('/forgot', middleware.sanitizeForgot, function(req, res, next) {
+router.post('/forgot', middleware.sanitizeForgot, (req, res, next) => {
   async.waterfall([
     function(done) {
       crypto.randomBytes(20, function(err, buf) {
@@ -77,7 +70,7 @@ router.post('/forgot', middleware.sanitizeForgot, function(req, res, next) {
       });
     },
     function(token, done) {
-      User.findOne({ username: req.body.username }, function(err, user) {
+      User.findOne({ username: req.body.username }, (err, user) => {
         if (!user) {
           req.flash('error', 'No account with the email address exist.');
           return res.redirect('back');
@@ -86,7 +79,7 @@ router.post('/forgot', middleware.sanitizeForgot, function(req, res, next) {
         user.resetPasswordToken = token;
         user.resetPasswordExpires = Date.now() + 3600000; // 1 hour
 
-        user.save(function(err) {
+        user.save((err) => {
           done(err, token, user);
         });
       });
@@ -101,19 +94,19 @@ router.post('/forgot', middleware.sanitizeForgot, function(req, res, next) {
           'http://' + req.headers.host + '/reset/' + token + '\n\n' +
           'If you did not request this, please ignore this email and your password will remain unchanged.\n'
       };
-      transport.sendMail(mailOptions, function(err) {
+      transport.sendMail(mailOptions, (err) => {
         req.flash('success', 'An e-mail has been sent to ' + user.username + ' with further instructions.');
         done(err, 'done');
       });
     }
-  ], function(err) {
+  ], (err) => {
     if (err) return next(err);
     res.redirect('back');
   });
 });
 
-router.get('/reset/:token', function(req, res) {
-  User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+router.get('/reset/:token', (req, res) => {
+  User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, (err, user) => {
     if (!user) {
       req.flash('error', 'Password reset token is invalid or has expired.');
       return res.redirect('/resetpassword');
@@ -122,21 +115,20 @@ router.get('/reset/:token', function(req, res) {
   });
 });
 
-router.post('/reset/:token', middleware.sanitizeReset, function(req, res) {
-  async.waterfall([
-    function(done) {
-      User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, function(err, user) {
+router.post('/reset/:token', middleware.sanitizeReset, (req, res) => {
+  async.waterfall([(done) => {
+      User.findOne({ resetPasswordToken: req.params.token, resetPasswordExpires: { $gt: Date.now() } }, (err, user) => {
         if (!user) {
           req.flash('error', 'Password reset token is invalid or has expired.');
           return res.redirect('back');
         }
         if(req.body.password === req.body.confirm) {
-          user.setPassword(req.body.password, function(err) {
+          user.setPassword(req.body.password, (err) => {
             user.resetPasswordToken = undefined;
             user.resetPasswordExpires = undefined;
 
-            user.save(function(err) {
-              req.logIn(user, function(err) {
+            user.save((err) => {
+              req.logIn(user, (err) => {
                 done(err, user);
               });
             });
@@ -147,8 +139,7 @@ router.post('/reset/:token', middleware.sanitizeReset, function(req, res) {
             return res.redirect('back');
         }
       });
-    },
-    function(user, done) {
+    },(user, done)=> {
      
       var mailOptions = {
         to: user.username,
@@ -157,12 +148,12 @@ router.post('/reset/:token', middleware.sanitizeReset, function(req, res) {
         text: 'Hello,\n\n' +
           'This is a confirmation that the password for your account ' + user.username + ' has just been changed.\n'
       };
-      transport.sendMail(mailOptions, function(err) {
+      transport.sendMail(mailOptions, (err) => {
         req.flash('success', 'Success! Your password has been changed.');
         done(err);
       });
     }
-  ], function(err) {
+  ], (err) => {
     res.redirect('/property');
   });
 });

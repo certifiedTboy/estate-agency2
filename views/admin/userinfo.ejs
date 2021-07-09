@@ -90,13 +90,16 @@
               <section class="agent-single">
     <div class="container mt-5">
       <div class="row">
+        <%if(!data){%>
+          <h2>Nothing is found here</h2>
+        <%}else{%>
         <div class="col-sm-12">
           <div class="row">
             <div class="col-md-3">
               <div class="agent-avatar-box">
                 <img src="/images/admin/user1.png" style="width: 200px;" alt="" class="agent-avatar img-fluid">
               </div>
-             
+      
             </div>
           <div class="col-md-3">
             <div class="agent-info-box">
@@ -174,7 +177,7 @@
           </div>
          
         </div>
-      
+        <%}%>
         </div>
       </div>
     </div>

@@ -1,22 +1,24 @@
 'use strict';
-var express = require('express');  
-var bodyParser = require('body-parser'); 
-var app = express() 
-var multer = require('multer');  
-var mongoose = require('mongoose');  
-var methodOverride = require("method-override");
-var flash = require("connect-flash");
-var LocalStrategy = require("passport-local");
+const express = require('express');  
+const bodyParser = require('body-parser'); 
+const app = express() 
+const multer = require('multer');  
+const mongoose = require('mongoose');  
+const methodOverride = require("method-override");
+const flash = require("connect-flash");
+const LocalStrategy = require("passport-local");
 const formatMessage = require('./utils/messages');
 const {userJoin, getCurrentUser, userLeave, getRoomUsers} = require('./utils/users');
-var ObjectId = require('mongodb').ObjectId; 
-var passport = require("passport");
+const ObjectId = require('mongodb').ObjectId; 
+const passport = require("passport");
 const middleware = require("./middleware/index")
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
 const expressSanitizer = require('express-sanitizer');
-var indexRoutes = require("./routes/index");
-var passwordRoutes = require("./routes/passwordReset")
-var path = require('path');  
-var response = require("./models/response")
+const indexRoutes = require("./routes/index");
+const passwordRoutes = require("./routes/passwordReset")
+const path = require('path');  
+const response = require("./models/response")
 const User = require('./models/user');
 const Chat = require('./models/Chat');
 const httpServer = require("http").createServer(app);
@@ -40,7 +42,7 @@ var storage = multer.diskStorage({
     destination:function(req,file,cb){  
          cb(null,'./public/uploads')  
     },  
-    filename(req,file,cb){  
+    filename(req,file,cb){ 
         cb(null,file.originalname)  
     }  
 })  
@@ -52,6 +54,7 @@ app.set("views",path.resolve(__dirname,'views'));
 var picPath = path.resolve(__dirname,'public');  
 app.use(express.static(picPath));  
 app.use(bodyParser.urlencoded({extended:false}))
+app.use(cookieParser());
 app.use(expressSanitizer());  
 app.use(indexRoutes);
 app.use(passwordRoutes)
@@ -83,25 +86,49 @@ io.on('connection', socket => {
       room: user.room,
       users: getRoomUsers(user.room)
     });
-  });
+  }); 
 
   // Listen for chatMessage
   socket.on('chatMessage', msg => {
-    const user = getCurrentUser(socket.id);
-
+    const user = getCurrentUser(socket.id)
     io.to(user.room).emit('message', formatMessage(user.username, msg));
-
     connect.then(db => {
       let chatMessage = new Chat({ message: msg, sender: user.username });
       chatMessage.save();
-      response.findOne({message:user.room}, function(err, respond){
-        respond.Chat.push(chatMessage)
+      response.findOne({message:user.room}, (err, respond) => {
+        respond.Chat.push(chatMessage) 
         respond.save()
-        
-      })
-      
+      }) 
     });
   });
+
+  
+// user typing
+socket.on('typing', (data)=>{
+  const user = getCurrentUser(socket.id)
+  if(data.typing===true)
+     socket.broadcast.to(user.room).emit('display', data)
+  else
+  socket.broadcast.to(user.room).emit('display', data) 
+})
+
+//user stop typing 
+socket.on('stopTyping', (data)=>{
+  const user = getCurrentUser(socket.id)
+  if(data.typing===false)
+    socket.broadcast.to(user.room).emit('hidden', data)
+  else
+  socket.broadcast.to(user.room).emit('hidden', data)
+})
+
+// notification to users 
+
+  socket.on("send-notification", function (data) {
+    const user = getCurrentUser(socket.id)
+    socket.broadcast.to(user.room).emit("new-notification", data);
+  });
+
+
 
   // Runs when client disconnects
   socket.on('disconnect', () => {
@@ -121,30 +148,6 @@ io.on('connection', socket => {
     }
   });
 });
-
-
-//show user typing
-io.on('connection', (socket) => {
-  socket.on('typing', (data)=>{
-    if(data.typing===true)
-       socket.broadcast.emit('display', data)
-    else
-       socket.broadcast.emit('display', data)
-  })
-  
-});
-
-io.on('connection', (socket)=>{
-  
-  socket.on('stopTyping', (data)=>{
-    if(data.typing===false)
-      socket.broadcast.emit('hidden', data)
-    else
-       socket.broadcast.emit('hidden', data)
-  })
-
-}) 
-
 
 
 

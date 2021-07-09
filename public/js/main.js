@@ -10,6 +10,21 @@ const { username, room } = Qs.parse(location.search, {
 
 const socket = io();
 
+toastr.options = {
+  timeOut: 4000,
+  positionClass : 'toast-bottom-right',
+  extendedTimeOut: 0,
+  fadeOut: 3,
+  fadeIn: 0,
+  showDuration: 5,
+  hideDuration: 5,
+  debug: false
+};
+
+socket.on('new-notification', (resp) => {
+toastr.success(resp, 'New notification')
+});
+
 // Join chatroom
 socket.emit('joinRoom', { username, room });
 
@@ -40,6 +55,8 @@ chatForm.addEventListener('submit', (e) => {
     return false;
   }
 
+  socket.emit("send-notification", "You have a new Message");
+
   // Emit message to server
   socket.emit('chatMessage', msg);
 
@@ -66,10 +83,6 @@ function outputMessage(message) {
 }
 
 
-
-
-
-
 // Add room name to DOM
 function outputRoomName(room) {
   roomName.innerText = room;
@@ -89,7 +102,6 @@ function outputUsers(users) {
 
 //user is typing 
 var typing=false;
-var timeout=undefined;
 var user; 
 
 
@@ -98,21 +110,16 @@ $(document).ready(function(){
     if(e.which!=13){
       typing=true
       socket.emit('typing', {user:$("#name").val(), typing:true})
-      clearTimeout(timeout)
-      timeout=setTimeout(typingTimeout, 1000000)
-    }else{
-      clearTimeout(timeout)
-      typingTimeout()
-            
+     
     }
   })
 
   
   socket.on('display', (data)=>{
     if(data.typing===true)
-      $('#typing').text(`${data.user} is typing...`)
+      $('.typing').text(`${data.user} is typing...`)
     else
-      $('#typing').text("")
+      $('.typing').text("")
   })
 })
 
@@ -122,16 +129,14 @@ $(document).ready(function(){
   $('#msg').keyup(()=>{
       typing=false
       socket.emit('stopTyping', {user:$("#name").val(), typing:false})
-      clearTimeout(timeout)
-      typingTimeout()
-            
+     
   })
 
   //code explained later
   socket.on('hidden', (data)=>{
     if(data.typing===false)
-      $('#typing').text(" ")
+      $('.typing').text(" ")
     else
-      $('#typing').text("")
+      $('.typing').text("")
   })
 })

@@ -31,10 +31,10 @@ var userSchema = new Schema({
 		}
 	], 
 
-	messages: [
+	Chat: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
-			ref: "message"
+			ref: "Chat"
 		}
 	], 
 	resetPasswordToken: String,
