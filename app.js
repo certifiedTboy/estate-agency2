@@ -11,6 +11,7 @@ const formatMessage = require('./utils/messages');
 const {userJoin, getCurrentUser, userLeave, getRoomUsers} = require('./utils/users');
 const ObjectId = require('mongodb').ObjectId; 
 const passport = require("passport");
+const dbConnect = require('./config/dbconnect')
 const middleware = require("./middleware/index")
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
@@ -27,27 +28,11 @@ const PORT = process.env.PORT || 3000;
 
 
 
-// var dbUrl = "mongodb://127.0.0.1:27017/estate-agency"
-const dbUrl = 'mongodb://smssolution:yGHblWA4Vm4LFivj@cluster0-shard-00-00.3wo4h.mongodb.net:27017,cluster0-shard-00-01.3wo4h.mongodb.net:27017,cluster0-shard-00-02.3wo4h.mongodb.net:27017/estate-agency2?authSource=admin&replicaSet=atlas-8os7kz-shard-0&w=majority&readPreference=primary&retryWrites=true&ssl=true'
-const connect = mongoose.connect(dbUrl, {useNewUrlParser:true, useUnifiedTopology: true})
-.then(()=>console.log('connectd to db'))
-.catch((err)=>console.log('error ',err));
 
 const server = app
   .listen(PORT, () => console.log(`Listening on ${PORT}`));
  
 const io = socketIO(server);
-
-const storage = multer.diskStorage({  
-    destination:function(req,file,cb){  
-         cb(null,'./public/uploads')  
-    },  
-    filename(req,file,cb){ 
-        cb(null,file.originalname)  
-    }  
-})  
-  
-const upload = multer({storage:storage});  
 
 app.set('view engine','ejs'); 
 app.set("views",path.resolve(__dirname,'views'));  
