@@ -63,7 +63,7 @@ router.post('/forgot', middleware.sanitizeForgot, (req, res, next) => {
   async.waterfall([
     function(done) {
       crypto.randomBytes(20, function(err, buf) {
-        var token = buf.toString('hex');
+        let token = buf.toString('hex');
         done(err, token);
         console.log(token)
         
@@ -85,7 +85,7 @@ router.post('/forgot', middleware.sanitizeForgot, (req, res, next) => {
       });
     },
     function(token, user, done) {
-      var mailOptions = {
+      let mailOptions = {
         to: user.username,
         from: 'urinfo.examssolutions12@gmail.com',
         subject: 'Request for Password reset',
@@ -141,7 +141,7 @@ router.post('/reset/:token', middleware.sanitizeReset, (req, res) => {
       });
     },(user, done)=> {
      
-      var mailOptions = {
+     let mailOptions = {
         to: user.username,
         from: 'urinfo.examssolutions12@gmail.com',
         subject: 'Your password has been changed',
