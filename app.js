@@ -28,8 +28,8 @@ const PORT = process.env.PORT || 3000;
 
 
 // var dbUrl = "mongodb://127.0.0.1:27017/estate-agency"
-var dbUrl = 'mongodb://smssolution:yGHblWA4Vm4LFivj@cluster0-shard-00-00.3wo4h.mongodb.net:27017,cluster0-shard-00-01.3wo4h.mongodb.net:27017,cluster0-shard-00-02.3wo4h.mongodb.net:27017/estate-agency2?authSource=admin&replicaSet=atlas-8os7kz-shard-0&w=majority&readPreference=primary&retryWrites=true&ssl=true'
-var connect = mongoose.connect(dbUrl, {useNewUrlParser:true, useUnifiedTopology: true})
+const dbUrl = 'mongodb://smssolution:yGHblWA4Vm4LFivj@cluster0-shard-00-00.3wo4h.mongodb.net:27017,cluster0-shard-00-01.3wo4h.mongodb.net:27017,cluster0-shard-00-02.3wo4h.mongodb.net:27017/estate-agency2?authSource=admin&replicaSet=atlas-8os7kz-shard-0&w=majority&readPreference=primary&retryWrites=true&ssl=true'
+const connect = mongoose.connect(dbUrl, {useNewUrlParser:true, useUnifiedTopology: true})
 .then(()=>console.log('connectd to db'))
 .catch((err)=>console.log('error ',err));
 
@@ -38,7 +38,7 @@ const server = app
  
 const io = socketIO(server);
 
-var storage = multer.diskStorage({  
+const storage = multer.diskStorage({  
     destination:function(req,file,cb){  
          cb(null,'./public/uploads')  
     },  
@@ -47,11 +47,11 @@ var storage = multer.diskStorage({
     }  
 })  
   
-var upload = multer({storage:storage});  
+const upload = multer({storage:storage});  
 
 app.set('view engine','ejs'); 
 app.set("views",path.resolve(__dirname,'views'));  
-var picPath = path.resolve(__dirname,'public');  
+const picPath = path.resolve(__dirname,'public');  
 app.use(express.static(picPath));  
 app.use(bodyParser.urlencoded({extended:false}))
 app.use(cookieParser());
